@@ -14,7 +14,7 @@ class MenuViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(red: 13/255, green: 0, blue: 75/255, alpha: 1.0)
+        view.backgroundColor = Colors.background
         
         setupIconImageView()
         setupPlayButton()
@@ -56,11 +56,11 @@ class MenuViewController: UIViewController {
         
         playButton.frame = frame
         playButton.setTitle("Играть", for: .normal)
-        playButton.setTitleColor(.white, for: .normal)
-        playButton.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0.1764705882, alpha: 1)
+        playButton.setTitleColor(Colors.text, for: .normal)
+        playButton.backgroundColor = Colors.elementBackground
         playButton.layer.cornerRadius = CGFloat(height/2)
         playButton.layer.borderWidth = 1
-        playButton.layer.borderColor = UIColor.white.cgColor
+        playButton.layer.borderColor = Colors.text.cgColor
         playButton.addTarget(self, action: #selector(playButtonTapped), for: .touchUpInside)
     }
     
@@ -79,18 +79,18 @@ class MenuViewController: UIViewController {
         
         resultsButton.frame = frame
         resultsButton.setTitle("Результаты", for: .normal)
-        resultsButton.setTitleColor(.white, for: .normal)
-        resultsButton.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0.1764705882, alpha: 1)
+        resultsButton.setTitleColor(Colors.text, for: .normal)
+        resultsButton.backgroundColor = Colors.elementBackground
         resultsButton.layer.cornerRadius = CGFloat(height/2)
         resultsButton.layer.borderWidth = 1
-        resultsButton.layer.borderColor = UIColor.white.cgColor
+        resultsButton.layer.borderColor = Colors.text.cgColor
         resultsButton.addTarget(self, action: #selector(resultsButtonTapped), for: .touchUpInside)
     }
     
     @objc func playButtonTapped(sender: UIButton!) {
         let questions = QuestionsStorage.shared.getData()
         let gameSession = GameSession(questionsCount: questions.count)
-        Game.shared = gameSession
+        Game.session = gameSession
         
         let gameVC = GameViewContoller(questions: questions, gameSesson: gameSession)
         gameVC.modalPresentationStyle = .fullScreen
@@ -98,6 +98,8 @@ class MenuViewController: UIViewController {
     }
     
     @objc func resultsButtonTapped(sender: UIButton!) {
-      print("Button tapped")
+        let resultsVC = ResultsTableViewController()
+        
+        self.present(resultsVC, animated: true, completion: nil)
     }
 }

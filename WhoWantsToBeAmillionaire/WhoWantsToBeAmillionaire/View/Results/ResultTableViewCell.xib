@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ResultTableViewCell" id="KGk-i7-Jjw" customClass="ResultTableViewCell" customModule="WhoWantsToBeAmillionaire" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="366" height="133"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="366" height="133"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Количество правильных ответов:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cLX-6u-zBS">
+                        <rect key="frame" x="15" y="41" width="264" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Заработано денег:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xPn-Zs-Fnx">
+                        <rect key="frame" x="15" y="67" width="150" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Использовано подсказок" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o1y-Kd-36r">
+                        <rect key="frame" x="15" y="93" width="202" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Дата:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xOd-7P-KPb">
+                        <rect key="frame" x="15" y="15" width="44" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="cLX-6u-zBS" firstAttribute="top" secondItem="xOd-7P-KPb" secondAttribute="bottom" constant="5" id="9b9-bc-nlB"/>
+                    <constraint firstItem="o1y-Kd-36r" firstAttribute="top" secondItem="xPn-Zs-Fnx" secondAttribute="bottom" constant="5" id="F31-Oc-SVB"/>
+                    <constraint firstItem="xOd-7P-KPb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="F3q-Fk-BmO"/>
+                    <constraint firstItem="xPn-Zs-Fnx" firstAttribute="top" secondItem="cLX-6u-zBS" secondAttribute="bottom" constant="5" id="HYK-KR-Pbs"/>
+                    <constraint firstItem="xOd-7P-KPb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="Knl-fn-tju"/>
+                    <constraint firstItem="o1y-Kd-36r" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="fja-s8-jhl"/>
+                    <constraint firstItem="xPn-Zs-Fnx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="xPN-Dp-w5x"/>
+                    <constraint firstItem="cLX-6u-zBS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="xWK-mX-vR1"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="correctAnswersLabel" destination="cLX-6u-zBS" id="kgz-qw-BLm"/>
+                <outlet property="dateLabel" destination="xOd-7P-KPb" id="HX6-ez-rxk"/>
+                <outlet property="scoreLabel" destination="xPn-Zs-Fnx" id="8gI-S1-Prh"/>
+                <outlet property="usedHintsLabel" destination="o1y-Kd-36r" id="jGR-FU-9R8"/>
+            </connections>
+            <point key="canvasLocation" x="165.21739130434784" y="161.71875"/>
+        </tableViewCell>
+    </objects>
+</document>
