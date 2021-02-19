@@ -218,11 +218,13 @@ class GameViewContoller: UIViewController {
             
             var buttonsDisabled: Int = 0
             var lastRand: Int = -1
+            let answers = [answerA, answerB, answerC, answerD]
             while buttonsDisabled != 2 {
                 let randIndex = Int.random(in: 0..<question.answers.count)
                 if question.answers[randIndex] != question.correctAnswer &&
-                    randIndex != lastRand {
-                    let answers = [answerA, answerB, answerC, answerD]
+                    randIndex != lastRand &&
+                    answers[randIndex].backgroundColor != .red
+                    {
                     answers[randIndex].setTitle("", for: .normal)
                     answers[randIndex].isUserInteractionEnabled = false
                     answers[randIndex].isEnabled = false
