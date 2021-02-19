@@ -7,6 +7,10 @@
 
 class Game {
     static var shared: GameSession?
+    
+    static func end() {
+        shared = nil
+    }
 }
 
 enum Hints {

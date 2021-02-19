@@ -22,7 +22,18 @@ class GameViewContoller: UIViewController {
     var answerC = UIButton()
     var answerD = UIButton()
     
+    var questions: [Question] = []
     weak var gameSessionDelegate: GameSession?
+    
+    init(questions: [Question], gameSesson: GameSession) {
+        super.init(nibName: nil, bundle: nil)
+        self.questions = questions
+        self.gameSessionDelegate = gameSesson
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +43,8 @@ class GameViewContoller: UIViewController {
         setupQuestionLabel()
         setupAnswerButtons()
         setupHints()
+        
+        fillGameData()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -80,7 +93,6 @@ class GameViewContoller: UIViewController {
         questionLabel.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0.1764705882, alpha: 1)
         questionLabel.layer.cornerRadius = CGFloat(height)/4
         questionLabel.layer.masksToBounds = true
-        questionLabel.text = "Test question"
         questionLabel.textAlignment = .center
     }
     
@@ -128,6 +140,7 @@ class GameViewContoller: UIViewController {
             button.layer.cornerRadius = CGFloat(height/2)
             button.layer.borderWidth = 1
             button.layer.borderColor = UIColor.white.cgColor
+            button.addTarget(self, action: #selector(answerTapped), for: .touchUpInside)
         }
     }
     
@@ -178,6 +191,53 @@ class GameViewContoller: UIViewController {
             button.layer.cornerRadius = CGFloat(height/2)
             button.layer.borderWidth = 1
             button.layer.borderColor = UIColor.white.cgColor
+        }
+    }
+    
+    private func fillGameData() {
+        guard let gameSession = gameSessionDelegate else { return }
+        let currentQuestionIndex = gameSession.correctAnswers
+        if currentQuestionIndex < questions.count {
+            let question = questions[currentQuestionIndex]
+            
+            questionLabel.text = question.text
+            for (i, button) in [answerA, answerB, answerC, answerD].enumerated() {
+                button.setTitle(question.answers[i], for: .normal)
+                button.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0.1764705882, alpha: 1)
+            }
+        } else {
+            win()
+        }
+    }
+    
+    private func win() {
+        print("Победа!")
+        Game.end()
+    }
+    
+    private func lose() {
+        print("Поражение!")
+        Game.end()
+    }
+
+    
+    private func correctAnswer() {
+        gameSessionDelegate?.correctAnswers += 1
+        fillGameData()
+    }
+    
+    @objc func answerTapped(sender: UIButton!) {
+        guard let gameSession = gameSessionDelegate else { return }
+        let currentQuestionIndex = gameSession.correctAnswers
+        if currentQuestionIndex < questions.count &&
+            sender.titleLabel?.text == questions[currentQuestionIndex].correctAnswer {
+            sender.backgroundColor = .green
+            print("Верно")
+            correctAnswer()
+        } else {
+            sender.backgroundColor = .red
+            lose()
+            self.dismiss(animated: true, completion: nil)
         }
     }
 }

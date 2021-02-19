@@ -88,14 +88,13 @@ class MenuViewController: UIViewController {
     }
     
     @objc func playButtonTapped(sender: UIButton!) {
-        let gameVC = GameViewContoller()
+        let questions = QuestionsStorage.shared.getData()
+        let gameSession = GameSession(questionsCount: questions.count)
+        Game.shared = gameSession
         
+        let gameVC = GameViewContoller(questions: questions, gameSesson: gameSession)
         gameVC.modalPresentationStyle = .fullScreen
         self.present(gameVC, animated: true, completion: nil)
-        
-        // Создаю GameSession
-        // предаю в синглтон
-        // ставлю ее делегатом в gameviewCOntroller
     }
     
     @objc func resultsButtonTapped(sender: UIButton!) {
