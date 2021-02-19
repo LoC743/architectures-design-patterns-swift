@@ -188,15 +188,21 @@ class GameViewContoller: UIViewController {
         
         [halfHintButton, quizHintButton, phoneCallHintButton, tryHintButton].forEach { (button) in
             button.setTitleColor(Colors.text, for: .normal)
-            button.backgroundColor = Colors.elementBackground
+            button.tintColor = Colors.text
             button.layer.cornerRadius = CGFloat(height/2)
-            button.layer.borderWidth = 1
-            button.layer.borderColor = Colors.text.cgColor
+            button.backgroundColor = Colors.elementBackground
         }
         
+        halfHintButton.setImage(UIImage(named: "half"), for: .normal)
         halfHintButton.addTarget(self, action: #selector(halfHintButtonTapped), for: .touchUpInside)
+        
+        quizHintButton.setImage(UIImage(systemName: "person.3"), for: .normal)
         quizHintButton.addTarget(self, action: #selector(quizHintButtonTapped), for: .touchUpInside)
+        
+        phoneCallHintButton.setImage(UIImage(named: "phone"), for: .normal)
         phoneCallHintButton.addTarget(self, action: #selector(phoneCallHintButtonTapped), for: .touchUpInside)
+        
+        tryHintButton.setImage(UIImage(named: "secondTry"), for: .normal)
         tryHintButton.addTarget(self, action: #selector(tryHintButtonTapped), for: .touchUpInside)
     }
     
