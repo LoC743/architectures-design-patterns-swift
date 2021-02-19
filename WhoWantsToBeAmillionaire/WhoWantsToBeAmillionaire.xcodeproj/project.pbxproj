@@ -13,6 +13,8 @@
 		8A1E203225DFC95D002B8439 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A1E203025DFC95D002B8439 /* LaunchScreen.storyboard */; };
 		8A1E204025DFCB31002B8439 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E203F25DFCB31002B8439 /* MenuViewController.swift */; };
 		8A1E204425DFCC33002B8439 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E204325DFCC33002B8439 /* Question.swift */; };
+		8A1E204725DFDA0F002B8439 /* GameViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E204625DFDA0F002B8439 /* GameViewContoller.swift */; };
+		8A1E204A25DFEA54002B8439 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E204925DFEA54002B8439 /* Game.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		8A1E203325DFC95D002B8439 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A1E203F25DFCB31002B8439 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		8A1E204325DFCC33002B8439 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		8A1E204625DFDA0F002B8439 /* GameViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewContoller.swift; sourceTree = "<group>"; };
+		8A1E204925DFEA54002B8439 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				8A1E204325DFCC33002B8439 /* Question.swift */,
+				8A1E204925DFEA54002B8439 /* Game.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -78,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				8A1E203F25DFCB31002B8439 /* MenuViewController.swift */,
+				8A1E204625DFDA0F002B8439 /* GameViewContoller.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -162,6 +168,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A1E204425DFCC33002B8439 /* Question.swift in Sources */,
+				8A1E204A25DFEA54002B8439 /* Game.swift in Sources */,
+				8A1E204725DFDA0F002B8439 /* GameViewContoller.swift in Sources */,
 				8A1E202625DFC95C002B8439 /* AppDelegate.swift in Sources */,
 				8A1E204025DFCB31002B8439 /* MenuViewController.swift in Sources */,
 			);

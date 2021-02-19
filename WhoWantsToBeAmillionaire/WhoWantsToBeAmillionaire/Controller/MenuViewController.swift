@@ -21,6 +21,10 @@ class MenuViewController: UIViewController {
         setupResultsButton()
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     private func setupIconImageView() {
         view.addSubview(iconImageView)
         
@@ -84,7 +88,14 @@ class MenuViewController: UIViewController {
     }
     
     @objc func playButtonTapped(sender: UIButton!) {
-      print("Button tapped")
+        let gameVC = GameViewContoller()
+        
+        gameVC.modalPresentationStyle = .fullScreen
+        self.present(gameVC, animated: true, completion: nil)
+        
+        // Создаю GameSession
+        // предаю в синглтон
+        // ставлю ее делегатом в gameviewCOntroller
     }
     
     @objc func resultsButtonTapped(sender: UIButton!) {
