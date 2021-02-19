@@ -9,6 +9,9 @@ struct Question {
     let id: Int
     let text: String
     let correctAnswer: String
+    var correctAnswerIndex: Int? {
+        return answers.firstIndex(of: correctAnswer)
+    }
     let answers: [String]
 }
 

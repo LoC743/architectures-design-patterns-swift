@@ -23,6 +23,7 @@ class GameViewContoller: UIViewController {
     var answerD = UIButton()
     
     var money: Int = 50000 // start from: 50 000
+    var secondLife: Bool = false
     var questions: [Question] = []
     weak var gameSessionDelegate: GameSession?
     
@@ -192,6 +193,88 @@ class GameViewContoller: UIViewController {
             button.layer.borderWidth = 1
             button.layer.borderColor = Colors.text.cgColor
         }
+        
+        halfHintButton.addTarget(self, action: #selector(halfHintButtonTapped), for: .touchUpInside)
+        quizHintButton.addTarget(self, action: #selector(quizHintButtonTapped), for: .touchUpInside)
+        phoneCallHintButton.addTarget(self, action: #selector(phoneCallHintButtonTapped), for: .touchUpInside)
+        tryHintButton.addTarget(self, action: #selector(tryHintButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc func halfHintButtonTapped(sender: UIButton!) {
+        guard let gameSession = gameSessionDelegate else { return }
+        let currentQuestionIndex = gameSession.correctAnswers
+        if currentQuestionIndex < questions.count {
+            let question = questions[currentQuestionIndex]
+            
+            var buttonsDisabled: Int = 0
+            var lastRand: Int = -1
+            while buttonsDisabled != 2 {
+                let randIndex = Int.random(in: 0..<question.answers.count)
+                if question.answers[randIndex] != question.correctAnswer &&
+                    randIndex != lastRand {
+                    let answers = [answerA, answerB, answerC, answerD]
+                    answers[randIndex].setTitle("", for: .normal)
+                    answers[randIndex].isUserInteractionEnabled = false
+                    answers[randIndex].isEnabled = false
+                    lastRand = randIndex
+                    buttonsDisabled += 1
+                }
+            }
+        }
+        
+        Game.session?.usedHints.append(.half)
+        
+        halfHintButton.isUserInteractionEnabled = false
+        halfHintButton.isEnabled = false
+    }
+    
+    @objc func quizHintButtonTapped(sender: UIButton!) {
+        guard let gameSession = gameSessionDelegate else { return }
+        let currentQuestionIndex = gameSession.correctAnswers
+        if currentQuestionIndex < questions.count {
+            let question = questions[currentQuestionIndex]
+            
+            let randIndex = Int.random(in: 0..<question.answers.count)
+            showAlert(title: "Подсказка зала", message: "Большинство проголосовало за \(randIndex+1) ответ.")
+            
+            Game.session?.usedHints.append(.quiz)
+            
+            quizHintButton.isUserInteractionEnabled = false
+            quizHintButton.isEnabled = false
+        }
+    }
+    
+    @objc func phoneCallHintButtonTapped(sender: UIButton!) {
+        guard let gameSession = gameSessionDelegate else { return }
+        let currentQuestionIndex = gameSession.correctAnswers
+        if currentQuestionIndex < questions.count {
+            let question = questions[currentQuestionIndex]
+            
+            var answer = 1
+            let isFriendSmart = Bool.random()
+            if isFriendSmart,
+               let correctAnswerIndex = question.correctAnswerIndex {
+                answer = correctAnswerIndex + 1
+            } else {
+                let randIndex = Int.random(in: 0..<question.answers.count)
+                answer = randIndex + 1
+            }
+            showAlert(title: "Звонок другу", message: "Ваш друг считает что правильный ответ № \(answer).")
+            
+            Game.session?.usedHints.append(.phoneCall)
+            
+            phoneCallHintButton.isUserInteractionEnabled = false
+            phoneCallHintButton.isEnabled = false
+        }
+    }
+    
+    @objc func tryHintButtonTapped(sender: UIButton!) {
+        secondLife = true
+        
+        Game.session?.usedHints.append(.tryToAnswer)
+        
+        tryHintButton.isUserInteractionEnabled = false
+        tryHintButton.isEnabled = false
     }
     
     private func disableButtons() {
@@ -202,9 +285,27 @@ class GameViewContoller: UIViewController {
     }
     
     private func enableButtons() {
+        guard let session = Game.session else { return }
         [answerA, answerB, answerC, answerD, halfHintButton, quizHintButton, phoneCallHintButton, tryHintButton].forEach { (button) in
             button.isEnabled = true
             button.isUserInteractionEnabled = true
+        }
+        
+        for hintButton in session.usedHints {
+            switch hintButton {
+            case .half:
+                halfHintButton.isEnabled = false
+                halfHintButton.isUserInteractionEnabled = false
+            case .quiz:
+                quizHintButton.isEnabled = false
+                quizHintButton.isUserInteractionEnabled = false
+            case .phoneCall:
+                phoneCallHintButton.isEnabled = false
+                phoneCallHintButton.isUserInteractionEnabled = false
+            case .tryToAnswer:
+                tryHintButton.isEnabled = false
+                tryHintButton.isUserInteractionEnabled = false
+            }
         }
     }
     
@@ -226,12 +327,12 @@ class GameViewContoller: UIViewController {
     }
     
     private func win() {
-        showAlert(title: "Победа!", message: "Поздравляем, Вы ответили правильно на все вопросы.")
+        showEndGameAlert(title: "Победа!", message: "Поздравляем, Вы ответили правильно на все вопросы.")
         Game.end(with: .win)
     }
     
     private func lose() {
-        showAlert(title: "Поражение!", message: "К сожалению вы правильно ответили только на \(gameSessionDelegate?.correctAnswers ?? 0) вопросов из \(gameSessionDelegate?.questionsCount ?? 0). Попробуйте еще раз?")
+        showEndGameAlert(title: "Поражение!", message: "К сожалению вы правильно ответили только на \(gameSessionDelegate?.correctAnswers ?? 0) вопросов из \(gameSessionDelegate?.questionsCount ?? 0). Попробуйте еще раз?")
         Game.end(with: .lose)
 
     }
@@ -247,6 +348,7 @@ class GameViewContoller: UIViewController {
     @objc func answerTapped(sender: UIButton!) {
         guard let gameSession = gameSessionDelegate else { return }
         let currentQuestionIndex = gameSession.correctAnswers
+        
         if currentQuestionIndex < questions.count &&
             sender.titleLabel?.text == questions[currentQuestionIndex].correctAnswer {
             sender.backgroundColor = .green
@@ -254,6 +356,10 @@ class GameViewContoller: UIViewController {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.correctAnswer()
             }
+        } else if secondLife {
+            sender.backgroundColor = .red
+            sender.isEnabled = false
+            sender.isUserInteractionEnabled = false
         } else {
             sender.backgroundColor = .red
             disableButtons()
@@ -261,10 +367,18 @@ class GameViewContoller: UIViewController {
                 self.lose()
             }
         }
+        secondLife = false
     }
     
     // MARK: - Отображение Alert
     private func showAlert(title: String, message: String) {
+        let alertContoller = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alertContoller.addAction(action)
+        present(alertContoller, animated: true, completion: nil)
+    }
+    
+    private func showEndGameAlert(title: String, message: String) {
         let alertContoller = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .cancel, handler: backToMenu(_:))
         alertContoller.addAction(action)
