@@ -7,25 +7,30 @@
 
 import Foundation
 
-enum GameResult {
+enum GameResultState {
     case win
     case lose
 }
 
 class Game {
     static var session: GameSession?
-    private(set) static var records: [GameSession] = []
+    private static let resultsCaretaker = ResultsCaretaker()
     
-    static func end(with state: GameResult) {
-           if let session = session {
-            records.append(session)
+    private(set) static var results: [GameResult] = {
+       return resultsCaretaker.loadResults()
+    }() {
+        didSet {
+            resultsCaretaker.saveResults(results: results)
+        }
+    }
+    
+    static func end(with state: GameResultState) {
+        if let session = Game.session {
+            let gameResult = GameResult(date: session.date, correctAnswersCount: session.correctAnswers, usedHintsCount: session.usedHints.count, score: session.score)
+            results.append(gameResult)
         }
         
-        session = nil
-    }
-
-    static func clearRecords() {
-        records.removeAll()
+        Game.session = nil
     }
 }
 

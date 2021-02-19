@@ -18,16 +18,16 @@ class ResultsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Game.records.count
+        return Game.results.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseCellIdentifier, for: indexPath) as! ResultTableViewCell
         
-        let index = Game.records.count - indexPath.row - 1
-        let session = Game.records[index]
+        let index = Game.results.count - indexPath.row - 1
+        let result = Game.results[index]
         
-        cell.configure(with: session)
+        cell.configure(with: result)
         
         
         return cell

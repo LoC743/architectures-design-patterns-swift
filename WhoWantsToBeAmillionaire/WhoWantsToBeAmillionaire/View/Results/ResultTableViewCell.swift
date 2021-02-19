@@ -17,13 +17,13 @@ class ResultTableViewCell: UITableViewCell {
         super.setSelected(false, animated: animated)
     }
     
-    func configure(with gameSession: GameSession) {
+    func configure(with gameResult: GameResult) {
         backgroundColor = Colors.scoreBackground
         
-        dateLabel.text = "Дата: \(gameSession.date)"
-        correctAnswersLabel.text = "Количество правильных ответов: \(gameSession.correctAnswers)"
-        scoreLabel.text = "Заработано денег: \(gameSession.score)"
-        usedHintsLabel.text = "Использовано подсказок: \(gameSession.usedHints.count)"
+        dateLabel.text = "Дата: \(gameResult.date)"
+        correctAnswersLabel.text = "Количество правильных ответов: \(gameResult.correctAnswersCount)"
+        scoreLabel.text = "Заработано денег: \(gameResult.score)"
+        usedHintsLabel.text = "Использовано подсказок: \(gameResult.usedHintsCount)"
         
         [dateLabel, correctAnswersLabel, scoreLabel, usedHintsLabel].forEach { (label) in
             label?.textColor = Colors.textAlternative
