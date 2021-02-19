@@ -53,6 +53,8 @@ class GameViewContoller: UIViewController {
         return .lightContent
     }
     
+    // MARK: - Настройка UI элементов
+    
     private func setupScoreLabel() {
         view.addSubview(scoreLabel)
         
@@ -206,6 +208,8 @@ class GameViewContoller: UIViewController {
         tryHintButton.addTarget(self, action: #selector(tryHintButtonTapped), for: .touchUpInside)
     }
     
+    // MARK: - Actions, Обработка нажатий на кнопки подсказок
+    
     @objc func halfHintButtonTapped(sender: UIButton!) {
         guard let gameSession = gameSessionDelegate else { return }
         let currentQuestionIndex = gameSession.correctAnswers
@@ -283,6 +287,8 @@ class GameViewContoller: UIViewController {
         tryHintButton.isEnabled = false
     }
     
+    // MARK: - Включение/выключение кнопок
+    
     private func disableButtons() {
         [answerA, answerB, answerC, answerD, halfHintButton, quizHintButton, phoneCallHintButton, tryHintButton].forEach { (button) in
             button.isEnabled = false
@@ -314,6 +320,8 @@ class GameViewContoller: UIViewController {
             }
         }
     }
+    
+    // MARK: - Основная логика
     
     private func fillGameData() {
         guard let gameSession = gameSessionDelegate else { return }
@@ -350,6 +358,8 @@ class GameViewContoller: UIViewController {
         fillGameData()
         enableButtons()
     }
+    
+    // MARK: - Action - нажатие на кнопку с ответом
     
     @objc func answerTapped(sender: UIButton!) {
         guard let gameSession = gameSessionDelegate else { return }

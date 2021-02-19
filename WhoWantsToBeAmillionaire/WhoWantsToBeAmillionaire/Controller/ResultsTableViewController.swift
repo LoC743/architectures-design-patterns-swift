@@ -14,6 +14,7 @@ class ResultsTableViewController: UITableViewController {
         super.viewDidLoad()
         
         tableView.backgroundColor = Colors.elementBackground
+        tableView.allowsSelection = false
         tableView.register(UINib(nibName: reuseCellIdentifier, bundle: nil), forCellReuseIdentifier: reuseCellIdentifier)
     }
     

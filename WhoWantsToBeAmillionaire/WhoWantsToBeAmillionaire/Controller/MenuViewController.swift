@@ -24,6 +24,7 @@ class MenuViewController: UIViewController {
         return .lightContent
     }
     
+    // MARK: - Настройка UI элементов
     private func setupElements() {
         setupIconImageView()
         
@@ -118,6 +119,17 @@ class MenuViewController: UIViewController {
         clearResultsButton.addTarget(self, action: #selector(clearResultsTapped), for: .touchUpInside)
     }
     
+    // MARK: - Отображение Alert-а
+    
+    private func showAlert(title: String, message: String) {
+        let alertContoller = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alertContoller.addAction(action)
+        present(alertContoller, animated: true, completion: nil)
+    }
+    
+    // MARK: - Action-ы кнопок
+
     @objc func playButtonTapped(sender: UIButton!) {
         let questions = QuestionsStorage.shared.getData()
         let gameSession = GameSession(questionsCount: questions.count)
@@ -132,13 +144,6 @@ class MenuViewController: UIViewController {
         let resultsVC = ResultsTableViewController()
         
         self.present(resultsVC, animated: true, completion: nil)
-    }
-    
-    private func showAlert(title: String, message: String) {
-        let alertContoller = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-        alertContoller.addAction(action)
-        present(alertContoller, animated: true, completion: nil)
     }
     
     @objc func clearResultsTapped(sender: UIButton!) {
