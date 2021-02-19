@@ -17,14 +17,20 @@ class MenuViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = Colors.background
         
-        setupIconImageView()
-        setupPlayButton()
-        setupResultsButton()
-        setupClearResultsButton()
+        setupElements()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
+    }
+    
+    private func setupElements() {
+        setupIconImageView()
+        
+        let offset = Int((UIScreen.main.bounds.height - iconImageView.frame.maxY - 150) / 4)
+        setupPlayButton(offset)
+        setupResultsButton(offset)
+        setupClearResultsButton(offset)
     }
     
     private func setupIconImageView() {
@@ -43,12 +49,12 @@ class MenuViewController: UIViewController {
         iconImageView.image = UIImage(named: "icon")
     }
     
-    private func setupPlayButton() {
+    private func setupPlayButton(_ offset: Int) {
         view.addSubview(playButton)
         
         let width = 150
-        let height = 55
-        let yOffset = 50
+        let height = 50
+        let yOffset = offset
         let iconImageViewFrame = iconImageView.frame
         let frame = CGRect(
             x: Int(view.center.x) - (width/2),
@@ -66,12 +72,12 @@ class MenuViewController: UIViewController {
         playButton.addTarget(self, action: #selector(playButtonTapped), for: .touchUpInside)
     }
     
-    private func setupResultsButton() {
+    private func setupResultsButton(_ offset: Int) {
         view.addSubview(resultsButton)
         
         let width = 150
-        let height = 55
-        let yOffset = 50
+        let height = 50
+        let yOffset = offset
         let playButtonFrame = playButton.frame
         let frame = CGRect(
             x: Int(view.center.x) - (width/2),
@@ -89,12 +95,12 @@ class MenuViewController: UIViewController {
         resultsButton.addTarget(self, action: #selector(resultsButtonTapped), for: .touchUpInside)
     }
     
-    private func setupClearResultsButton() {
+    private func setupClearResultsButton(_ offset: Int) {
         view.addSubview(clearResultsButton)
         
         let width = 250
-        let height = 55
-        let yOffset = 50
+        let height = 50
+        let yOffset = offset
         let playButtonFrame = resultsButton.frame
         let frame = CGRect(
             x: Int(view.center.x) - (width/2),
