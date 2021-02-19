@@ -32,6 +32,10 @@ class Game {
         
         Game.session = nil
     }
+    
+    static func clearResults() {
+        results = []
+    }
 }
 
 enum Hints {
