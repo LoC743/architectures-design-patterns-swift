@@ -17,6 +17,8 @@ class Game {
     var session: GameSession?
     private let resultsCaretaker = ResultsCaretaker()
     
+    private init() {}
+    
     private(set) lazy var results: [GameResult] = {
        return resultsCaretaker.loadResults()
     }() {
