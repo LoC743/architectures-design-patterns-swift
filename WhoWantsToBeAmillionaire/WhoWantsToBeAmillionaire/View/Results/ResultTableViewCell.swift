@@ -19,9 +19,8 @@ class ResultTableViewCell: UITableViewCell {
     
     func configure(with gameResult: GameResult) {
         backgroundColor = Colors.scoreBackground
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
-        let date = dateFormatter.string(from: gameResult.date)
+
+        let date = globalDateFormatter.string(from: gameResult.date)
         
         dateLabel.text = "Дата: \(date)"
         correctAnswersLabel.text = "Количество правильных ответов: \(gameResult.correctAnswersCount)"
@@ -34,5 +33,4 @@ class ResultTableViewCell: UITableViewCell {
             label?.sizeToFit()
         }
     }
-    
 }
