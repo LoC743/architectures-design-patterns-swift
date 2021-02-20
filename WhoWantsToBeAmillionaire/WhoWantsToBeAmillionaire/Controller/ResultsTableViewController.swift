@@ -19,14 +19,14 @@ class ResultsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Game.results.count
+        return Game.shared.results.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseCellIdentifier, for: indexPath) as! ResultTableViewCell
         
-        let index = Game.results.count - indexPath.row - 1
-        let result = Game.results[index]
+        let index = Game.shared.results.count - indexPath.row - 1
+        let result = Game.shared.results[index]
         
         cell.configure(with: result)
         

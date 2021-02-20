@@ -13,10 +13,11 @@ enum GameResultState {
 }
 
 class Game {
-    static var session: GameSession?
-    private static let resultsCaretaker = ResultsCaretaker()
+    static var shared = Game()
+    var session: GameSession?
+    private let resultsCaretaker = ResultsCaretaker()
     
-    private(set) static var results: [GameResult] = {
+    private(set) lazy var results: [GameResult] = {
        return resultsCaretaker.loadResults()
     }() {
         didSet {
@@ -24,16 +25,16 @@ class Game {
         }
     }
     
-    static func end(with state: GameResultState) {
-        if let session = Game.session {
+    func end(with state: GameResultState) {
+        if let session = Game.shared.session {
             let gameResult = GameResult(date: session.date, correctAnswersCount: session.correctAnswers, usedHintsCount: session.usedHints.count, score: session.score)
             results.append(gameResult)
         }
         
-        Game.session = nil
+        Game.shared.session = nil
     }
     
-    static func clearResults() {
+    func clearResults() {
         results = []
     }
 }

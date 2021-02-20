@@ -133,7 +133,7 @@ class MenuViewController: UIViewController {
     @objc func playButtonTapped(sender: UIButton!) {
         let questions = QuestionsStorage.shared.getData()
         let gameSession = GameSession(questionsCount: questions.count)
-        Game.session = gameSession
+        Game.shared.session = gameSession
         
         let gameVC = GameViewContoller(questions: questions, gameSesson: gameSession)
         gameVC.modalPresentationStyle = .fullScreen
@@ -147,7 +147,7 @@ class MenuViewController: UIViewController {
     }
     
     @objc func clearResultsTapped(sender: UIButton!) {
-        Game.clearResults()
+        Game.shared.clearResults()
         showAlert(title: "Результаты", message: "Статистика очищена.")
     }
 }

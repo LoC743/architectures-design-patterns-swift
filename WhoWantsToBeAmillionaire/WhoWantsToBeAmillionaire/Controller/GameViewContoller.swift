@@ -234,7 +234,7 @@ class GameViewContoller: UIViewController {
             }
         }
         
-        Game.session?.usedHints.append(.half)
+        Game.shared.session?.usedHints.append(.half)
         
         halfHintButton.isUserInteractionEnabled = false
         halfHintButton.isEnabled = false
@@ -249,7 +249,7 @@ class GameViewContoller: UIViewController {
             let randIndex = Int.random(in: 0..<question.answers.count)
             showAlert(title: "Подсказка зала", message: "Большинство проголосовало за \(randIndex+1) ответ.")
             
-            Game.session?.usedHints.append(.quiz)
+            Game.shared.session?.usedHints.append(.quiz)
             
             quizHintButton.isUserInteractionEnabled = false
             quizHintButton.isEnabled = false
@@ -273,7 +273,7 @@ class GameViewContoller: UIViewController {
             }
             showAlert(title: "Звонок другу", message: "Ваш друг считает что правильный ответ № \(answer).")
             
-            Game.session?.usedHints.append(.phoneCall)
+            Game.shared.session?.usedHints.append(.phoneCall)
             
             phoneCallHintButton.isUserInteractionEnabled = false
             phoneCallHintButton.isEnabled = false
@@ -283,7 +283,7 @@ class GameViewContoller: UIViewController {
     @objc func tryHintButtonTapped(sender: UIButton!) {
         secondLife = true
         
-        Game.session?.usedHints.append(.tryToAnswer)
+        Game.shared.session?.usedHints.append(.tryToAnswer)
         
         tryHintButton.isUserInteractionEnabled = false
         tryHintButton.isEnabled = false
@@ -299,7 +299,7 @@ class GameViewContoller: UIViewController {
     }
     
     private func enableButtons() {
-        guard let session = Game.session else { return }
+        guard let session = Game.shared.session else { return }
         [answerA, answerB, answerC, answerD, halfHintButton, quizHintButton, phoneCallHintButton, tryHintButton].forEach { (button) in
             button.isEnabled = true
             button.isUserInteractionEnabled = true
@@ -344,12 +344,12 @@ class GameViewContoller: UIViewController {
     
     private func win() {
         showEndGameAlert(title: "Победа!", message: "Поздравляем, Вы ответили правильно на все вопросы.")
-        Game.end(with: .win)
+        Game.shared.end(with: .win)
     }
     
     private func lose() {
         showEndGameAlert(title: "Поражение!", message: "К сожалению вы правильно ответили только на \(gameSessionDelegate?.correctAnswers ?? 0) вопросов из \(gameSessionDelegate?.questionsCount ?? 0). Попробуйте еще раз?")
-        Game.end(with: .lose)
+        Game.shared.end(with: .lose)
 
     }
     
