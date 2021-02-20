@@ -18,8 +18,10 @@ struct Question {
 class QuestionsStorage {
     static var shared = QuestionsStorage()
     
-    func getData() -> [Question] {
-        let questions: [Question] = [
+    private init() {}
+    
+    var getData = {
+        return [
             Question(id: 1, text: "Как характеризуют человека, одетого во всё новое?", correctAnswer: "одет с иголочки",
                      answers: ["одет с иголочки", "одет с напёрсточка", "одет с булавочки", "одет с ниточки"]),
             Question(id: 2, text: "Из чего сделаны ядра орехов, которые грызёт белка в \"Сказке о царе Салтане\"?", correctAnswer: "изумруд",
@@ -41,7 +43,5 @@ class QuestionsStorage {
             Question(id: 10, text: "Что с 1714 года Пётр I запретил делать во всех российских городах, кроме Санкт-Петербурга?", correctAnswer: "строить каменные дома",
                      answers: ["устраивать баллы и ассамблеи", "ездить на каретах", "строить каменные дома", "казнить купцов"])
         ]
-        
-        return questions
-    }
+    }()
 }
