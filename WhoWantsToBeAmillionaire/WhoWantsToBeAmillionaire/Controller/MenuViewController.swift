@@ -119,15 +119,6 @@ class MenuViewController: UIViewController {
         clearResultsButton.addTarget(self, action: #selector(clearResultsTapped), for: .touchUpInside)
     }
     
-    // MARK: - Отображение Alert-а
-    
-    private func showAlert(title: String, message: String) {
-        let alertContoller = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-        alertContoller.addAction(action)
-        present(alertContoller, animated: true, completion: nil)
-    }
-    
     // MARK: - Action-ы кнопок
 
     @objc func playButtonTapped(sender: UIButton!) {

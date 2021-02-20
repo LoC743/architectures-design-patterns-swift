@@ -343,12 +343,12 @@ class GameViewContoller: UIViewController {
     }
     
     private func win() {
-        showEndGameAlert(title: "Победа!", message: "Поздравляем, Вы ответили правильно на все вопросы.")
+        showAlert(title: "Победа!", message: "Поздравляем, Вы ответили правильно на все вопросы.", actionHandler: backToMenu(_:))
         Game.shared.end(with: .win)
     }
     
     private func lose() {
-        showEndGameAlert(title: "Поражение!", message: "К сожалению вы правильно ответили только на \(gameSessionDelegate?.correctAnswers ?? 0) вопросов из \(gameSessionDelegate?.questionsCount ?? 0). Попробуйте еще раз?")
+        showAlert(title: "Поражение!", message: "К сожалению вы правильно ответили только на \(gameSessionDelegate?.correctAnswers ?? 0) вопросов из \(gameSessionDelegate?.questionsCount ?? 0). Попробуйте еще раз?", actionHandler: backToMenu(_:))
         Game.shared.end(with: .lose)
 
     }
@@ -388,20 +388,7 @@ class GameViewContoller: UIViewController {
         secondLife = false
     }
     
-    // MARK: - Отображение Alert
-    private func showAlert(title: String, message: String) {
-        let alertContoller = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-        alertContoller.addAction(action)
-        present(alertContoller, animated: true, completion: nil)
-    }
-    
-    private func showEndGameAlert(title: String, message: String) {
-        let alertContoller = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .cancel, handler: backToMenu(_:))
-        alertContoller.addAction(action)
-        present(alertContoller, animated: true, completion: nil)
-    }
+    // MARK: - Action Handler для Alert
     
     private func backToMenu(_: UIAlertAction) {
         self.dismiss(animated: true, completion: nil)
