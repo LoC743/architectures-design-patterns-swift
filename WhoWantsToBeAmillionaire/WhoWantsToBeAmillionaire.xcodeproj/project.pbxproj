@@ -10,7 +10,6 @@
 		8A12D83A25E14A710063E882 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A12D83925E14A710063E882 /* DateFormatter.swift */; };
 		8A12D83D25E14B1E0063E882 /* ShowAlertExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A12D83C25E14B1E0063E882 /* ShowAlertExtension.swift */; };
 		8A1E202625DFC95C002B8439 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E202525DFC95C002B8439 /* AppDelegate.swift */; };
-		8A1E202D25DFC95C002B8439 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A1E202B25DFC95C002B8439 /* Main.storyboard */; };
 		8A1E202F25DFC95D002B8439 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A1E202E25DFC95D002B8439 /* Assets.xcassets */; };
 		8A1E203225DFC95D002B8439 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A1E203025DFC95D002B8439 /* LaunchScreen.storyboard */; };
 		8A1E204025DFCB31002B8439 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E203F25DFCB31002B8439 /* MenuViewController.swift */; };
@@ -30,7 +29,6 @@
 		8A12D83C25E14B1E0063E882 /* ShowAlertExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlertExtension.swift; sourceTree = "<group>"; };
 		8A1E202225DFC95C002B8439 /* WhoWantsToBeAmillionaire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhoWantsToBeAmillionaire.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A1E202525DFC95C002B8439 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8A1E202C25DFC95C002B8439 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8A1E202E25DFC95D002B8439 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8A1E203125DFC95D002B8439 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8A1E203325DFC95D002B8439 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -76,12 +74,11 @@
 		8A1E202425DFC95C002B8439 /* WhoWantsToBeAmillionaire */ = {
 			isa = PBXGroup;
 			children = (
+				8A1E203E25DFCB12002B8439 /* Support */,
 				8A1E204F25E00ADF002B8439 /* View */,
-				8A1E203E25DFCB12002B8439 /* Storyboard */,
 				8A1E203D25DFCB04002B8439 /* Controller */,
 				8A1E203B25DFCAF1002B8439 /* Model */,
 				8A1E202525DFC95C002B8439 /* AppDelegate.swift */,
-				8A1E202E25DFC95D002B8439 /* Assets.xcassets */,
 				8A1E203325DFC95D002B8439 /* Info.plist */,
 			);
 			path = WhoWantsToBeAmillionaire;
@@ -111,13 +108,13 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		8A1E203E25DFCB12002B8439 /* Storyboard */ = {
+		8A1E203E25DFCB12002B8439 /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				8A1E202B25DFC95C002B8439 /* Main.storyboard */,
+				8A1E202E25DFC95D002B8439 /* Assets.xcassets */,
 				8A1E203025DFC95D002B8439 /* LaunchScreen.storyboard */,
 			);
-			path = Storyboard;
+			path = Support;
 			sourceTree = "<group>";
 		};
 		8A1E204F25E00ADF002B8439 /* View */ = {
@@ -197,7 +194,6 @@
 				8A1E203225DFC95D002B8439 /* LaunchScreen.storyboard in Resources */,
 				8A1E202F25DFC95D002B8439 /* Assets.xcassets in Resources */,
 				8A1E205325E00B22002B8439 /* ResultTableViewCell.xib in Resources */,
-				8A1E202D25DFC95C002B8439 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,14 +222,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		8A1E202B25DFC95C002B8439 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8A1E202C25DFC95C002B8439 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		8A1E203025DFC95D002B8439 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -367,7 +355,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9LK5ZZR926;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = WhoWantsToBeAmillionaire/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -386,7 +374,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9LK5ZZR926;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = WhoWantsToBeAmillionaire/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
