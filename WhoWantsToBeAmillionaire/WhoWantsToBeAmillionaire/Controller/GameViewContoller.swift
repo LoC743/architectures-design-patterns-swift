@@ -371,7 +371,8 @@ class GameViewContoller: UIViewController {
             sender.titleLabel?.text == questions[currentQuestionIndex].correctAnswer {
             sender.backgroundColor = .green
             disableButtons()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                guard let self = self else { return }
                 self.correctAnswer()
             }
         } else if secondLife {
@@ -381,7 +382,8 @@ class GameViewContoller: UIViewController {
         } else {
             sender.backgroundColor = .red
             disableButtons()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                guard let self = self else { return }
                 self.lose()
             }
         }
