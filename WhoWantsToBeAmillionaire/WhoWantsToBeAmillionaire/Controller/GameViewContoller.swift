@@ -22,8 +22,8 @@ class GameViewContoller: UIViewController {
     var answerC = UIButton()
     var answerD = UIButton()
     
-    var money: Int = 50000 // start from: 50 000
-    let moneyMultiplier: Int = 2
+    var money: Int = 20000 // start from: 20 000
+    let moneyMultiplier: Double = 2.0
     var secondLife: Bool = false
     var questions: [Question] = []
     weak var gameSessionDelegate: GameSession?
@@ -75,6 +75,9 @@ class GameViewContoller: UIViewController {
         scoreLabel.textAlignment = .center
         scoreLabel.textColor = Colors.textAlternative
         scoreLabel.backgroundColor = Colors.scoreBackground
+        // Подписка на уведомления
+        let notificationName = Notification.Name(Notifications.currentQuestion.rawValue)
+        NotificationCenter.default.addObserver(self, selector: #selector(currentQuestionValueChanged), name: notificationName, object: nil)
     }
     
     private func setupQuestionLabel() {
@@ -301,7 +304,7 @@ class GameViewContoller: UIViewController {
         if currentQuestionIndex < questions.count {
             let question = questions[currentQuestionIndex]
             
-            scoreLabel.text = "Вопрос №\(currentQuestionIndex+1). Сумма: \(money) ₽"
+            gameSessionDelegate?.currentQuestion += 1
             questionLabel.text = question.text
             for (i, button) in [answerA, answerB, answerC, answerD].enumerated() {
                 button.setTitle(question.answers[i], for: .normal)
@@ -324,11 +327,18 @@ class GameViewContoller: UIViewController {
     }
     
     private func correctAnswer() {
+        // Сохранить результаты в сессию
         gameSessionDelegate?.correctAnswers += 1
         gameSessionDelegate?.score = money
-        money *= moneyMultiplier
+        // Обновить данные экран
+        increaseMoney()
         fillGameData()
         enableButtons()
+    }
+    
+    private func increaseMoney() {
+        let moneyDouble: Double = Double(money) * moneyMultiplier
+        money = Int(moneyDouble)
     }
     
     // MARK: - Action - нажатие на кнопку с ответом
@@ -364,5 +374,18 @@ class GameViewContoller: UIViewController {
     
     private func backToMenu(_: UIAlertAction) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    // MARK: - (Selector) наблюдает за изменением текущего вопроса
+    @objc func currentQuestionValueChanged() {
+        guard let delegate = gameSessionDelegate else { return }
+        let percent = Double(delegate.correctAnswers)/Double(delegate.questionsCount) * 100
+        scoreLabel.text = "Вопрос №\(delegate.currentQuestion) (\(Int(percent))%). Сумма: \(money) ₽"
+    }
+    
+    // MARK: - Деструктор
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
