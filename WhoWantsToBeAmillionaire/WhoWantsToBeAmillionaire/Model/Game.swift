@@ -14,10 +14,15 @@ enum GameResultState {
 
 class Game {
     static var shared = Game()
+    
     var session: GameSession?
+    var questionsOrder: QuestionsOrder = .serial
+    
     private let resultsCaretaker = ResultsCaretaker()
     
-    private init() {}
+    private init() {
+        // load questionOrder from cache
+    }
     
     private(set) lazy var results: [GameResult] = {
        return resultsCaretaker.loadResults()

@@ -51,7 +51,8 @@ class SettingsViewController: UIViewController {
         questionsModeSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: Colors.text], for: .normal)
         questionsModeSegmentedControl.insertSegment(withTitle: "Последовательно", at: 0, animated: false)
         questionsModeSegmentedControl.insertSegment(withTitle: "Случайно", at: 1, animated: false)
-        questionsModeSegmentedControl.selectedSegmentIndex = 0
+        questionsModeSegmentedControl.selectedSegmentIndex = Game.shared.questionsOrder.rawValue
+        questionsModeSegmentedControl.addTarget(self, action: #selector(questionModeSegmentedContolValueChanged), for: .valueChanged)
     }
     
     private func setupQuestionsButton(_ topOffset: Int, _ height: Int) {
@@ -95,6 +96,21 @@ class SettingsViewController: UIViewController {
             button.layer.cornerRadius = CGFloat(buttonHeight/2)
             button.layer.borderWidth = 1
             button.layer.borderColor = Colors.text.cgColor
+        }
+    }
+    
+    // MARK: - (Action): Изменение порядка вопросов
+    
+    @objc func questionModeSegmentedContolValueChanged(sender: UISegmentedControl!) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            // Serial
+            Game.shared.questionsOrder = .serial
+        case 1:
+            // Random
+            Game.shared.questionsOrder = .random
+        default:
+            break
         }
     }
     

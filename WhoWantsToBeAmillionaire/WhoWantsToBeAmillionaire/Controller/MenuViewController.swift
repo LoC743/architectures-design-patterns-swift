@@ -116,7 +116,7 @@ class MenuViewController: UIViewController {
     // MARK: - Action-ы кнопок
 
     @objc func playButtonTapped(sender: UIButton!) {
-        let questions = QuestionsStorage.shared.getData
+        let questions = QuestionsInOrderFacade().get()
         let gameSession = GameSession(questionsCount: questions.count)
         Game.shared.session = gameSession
         
