@@ -16,12 +16,17 @@ class Game {
     static var shared = Game()
     
     var session: GameSession?
-    var questionsOrder: QuestionsOrder = .serial
+    var questionsMode: QuestionsOrder {
+        didSet {
+            questionsModeCaretaker.saveMode(mode: questionsMode)
+        }
+    }
     
     private let resultsCaretaker = ResultsCaretaker()
+    private let questionsModeCaretaker = QuestionModeCaretaker()
     
     private init() {
-        // load questionOrder from cache
+        questionsMode = questionsModeCaretaker.loadMode()
     }
     
     private(set) lazy var results: [GameResult] = {

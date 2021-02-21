@@ -32,7 +32,7 @@ class QuestionsRandomOrderStrategy: QuestionsOrderStrategy {
 }
 
 class QuestionsInOrderFacade {
-    let mode: QuestionsOrder = Game.shared.questionsOrder
+    let mode: QuestionsOrder = Game.shared.questionsMode
     
     private lazy var strategy: QuestionsOrderStrategy = {
         switch mode {

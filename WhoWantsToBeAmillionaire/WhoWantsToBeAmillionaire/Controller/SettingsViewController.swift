@@ -51,7 +51,7 @@ class SettingsViewController: UIViewController {
         questionsModeSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: Colors.text], for: .normal)
         questionsModeSegmentedControl.insertSegment(withTitle: "Последовательно", at: 0, animated: false)
         questionsModeSegmentedControl.insertSegment(withTitle: "Случайно", at: 1, animated: false)
-        questionsModeSegmentedControl.selectedSegmentIndex = Game.shared.questionsOrder.rawValue
+        questionsModeSegmentedControl.selectedSegmentIndex = Game.shared.questionsMode.rawValue
         questionsModeSegmentedControl.addTarget(self, action: #selector(questionModeSegmentedContolValueChanged), for: .valueChanged)
     }
     
@@ -105,10 +105,10 @@ class SettingsViewController: UIViewController {
         switch sender.selectedSegmentIndex {
         case 0:
             // Serial
-            Game.shared.questionsOrder = .serial
+            Game.shared.questionsMode = .serial
         case 1:
             // Random
-            Game.shared.questionsOrder = .random
+            Game.shared.questionsMode = .random
         default:
             break
         }
