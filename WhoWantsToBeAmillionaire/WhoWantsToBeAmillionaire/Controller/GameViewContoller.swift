@@ -23,6 +23,7 @@ class GameViewContoller: UIViewController {
     var answerD = UIButton()
     
     var money: Int = 50000 // start from: 50 000
+    let moneyMultiplier: Int = 2
     var secondLife: Bool = false
     var questions: [Question] = []
     weak var gameSessionDelegate: GameSession?
@@ -108,36 +109,21 @@ class GameViewContoller: UIViewController {
         let sideOffset = 15
         let bottomOffset = 20
         let height = 50
-        
-        answerA.frame = CGRect(
-            x: sideOffset,
-            y: Int(questionLabel.frame.maxY) + bottomOffset,
-            width: Int(view.bounds.width) - sideOffset*2,
-            height: height
-        )
-        
-        answerB.frame = CGRect(
-            x: sideOffset,
-            y: Int(answerA.frame.maxY) + bottomOffset,
-            width: Int(view.bounds.width) - sideOffset*2,
-            height: height
-        )
-        
-        answerC.frame = CGRect(
-            x: sideOffset,
-            y: Int(answerB.frame.maxY) + bottomOffset,
-            width: Int(view.bounds.width) - sideOffset*2,
-            height: height
-        )
-        
-        answerD.frame = CGRect(
-            x: sideOffset,
-            y: Int(answerC.frame.maxY) + bottomOffset,
-            width: Int(view.bounds.width) - sideOffset*2,
-            height: height
-        )
-        
-        [answerA, answerB, answerC, answerD].forEach { (button) in
+        let width = Int(view.bounds.width) - sideOffset*2
+
+        let answerButtons = [answerA, answerB, answerC, answerD]
+        for (index, button) in answerButtons.enumerated() {
+            var yOffset = Int(questionLabel.frame.maxY) + bottomOffset
+            if index != 0 {
+                yOffset = Int(answerButtons[index - 1].frame.maxY) + bottomOffset
+            }
+            
+            button.frame = CGRect(
+                x: sideOffset,
+                y: yOffset,
+                width: width,
+                height: height
+            )
             button.setTitleColor(Colors.text, for: .normal)
             button.backgroundColor = Colors.elementBackground
             button.layer.cornerRadius = CGFloat(height/2)
@@ -160,35 +146,19 @@ class GameViewContoller: UIViewController {
         let offset = (Int(view.bounds.width) - width*4)/5
         let y = Int(view.frame.height - bottomPadding) - width/2 - 50
         
-        halfHintButton.frame = CGRect(
-            x: offset,
-            y: y,
-            width: width,
-            height: height
-        )
-        
-        quizHintButton.frame = CGRect(
-            x: Int(halfHintButton.frame.maxX) + offset,
-            y: y,
-            width: width,
-            height: height
-        )
-        
-        phoneCallHintButton.frame = CGRect(
-            x: Int(quizHintButton.frame.maxX) + offset,
-            y: y,
-            width: width,
-            height: height
-        )
-        
-        tryHintButton.frame = CGRect(
-            x: Int(phoneCallHintButton.frame.maxX) + offset,
-            y: y,
-            width: width,
-            height: height
-        )
-        
-        [halfHintButton, quizHintButton, phoneCallHintButton, tryHintButton].forEach { (button) in
+        let hintButtons = [halfHintButton, quizHintButton, phoneCallHintButton, tryHintButton]
+        for (index, button) in hintButtons.enumerated() {
+            var xOffset = offset
+            if index != 0 {
+                xOffset += Int(hintButtons[index - 1].frame.maxX)
+            }
+            
+            button.frame = CGRect(
+                x: xOffset,
+                y: y,
+                width: width,
+                height: height
+            )
             button.setTitleColor(Colors.text, for: .normal)
             button.tintColor = Colors.text
             button.layer.cornerRadius = CGFloat(height/2)
@@ -356,7 +326,7 @@ class GameViewContoller: UIViewController {
     private func correctAnswer() {
         gameSessionDelegate?.correctAnswers += 1
         gameSessionDelegate?.score = money
-        money *= 2
+        money *= moneyMultiplier
         fillGameData()
         enableButtons()
     }

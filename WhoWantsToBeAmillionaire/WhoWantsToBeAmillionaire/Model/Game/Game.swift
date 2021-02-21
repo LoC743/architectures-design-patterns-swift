@@ -50,22 +50,3 @@ class Game {
         results = []
     }
 }
-
-enum Hints {
-    case half
-    case quiz
-    case phoneCall
-    case tryToAnswer
-}
-
-class GameSession {
-    var date: Date = Date()
-    var correctAnswers: Int = 0  // Количество правильных ответов
-    var questionsCount: Int
-    var score: Int = 0           // Количество денег
-    var usedHints: [Hints] = []  // Использованные подсказки
-    
-    init(questionsCount: Int) {
-        self.questionsCount = questionsCount
-    }
-}
