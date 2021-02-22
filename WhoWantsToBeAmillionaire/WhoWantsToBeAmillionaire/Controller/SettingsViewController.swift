@@ -117,7 +117,9 @@ class SettingsViewController: UIViewController {
     // MARK: - (Action): Переход к таблице вопросов
     
     @objc func questionsButtonTapped(sender: UIButton!) {
-        showAlert(title: "Не готово", message: "Тут должен быть переход к таблице вопросов.")
+        let questionsVC = QuestionsTabelViewController()
+
+        self.present(questionsVC, animated: true, completion: nil)
     }
     
     // MARK: - (Action): Очистка результатов

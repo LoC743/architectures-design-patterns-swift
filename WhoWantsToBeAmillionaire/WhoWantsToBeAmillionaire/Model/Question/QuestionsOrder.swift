@@ -16,7 +16,7 @@ protocol QuestionsOrderStrategy: AnyObject {
 
 class QuestionsSerialOrderStrategy: QuestionsOrderStrategy {
     func loadQuestions() -> [Question] {
-        let questions = QuestionsStorage.shared.getData
+        let questions = QuestionsStorage.shared.questions
         
         return questions
     }
@@ -24,7 +24,7 @@ class QuestionsSerialOrderStrategy: QuestionsOrderStrategy {
 
 class QuestionsRandomOrderStrategy: QuestionsOrderStrategy {
     func loadQuestions() -> [Question] {
-        var questions = QuestionsStorage.shared.getData
+        var questions = QuestionsStorage.shared.questions
         questions.shuffle()
         
         return questions
