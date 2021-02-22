@@ -54,4 +54,8 @@ class QuestionsStorage {
     func add(question: Question) {
         questions.append(question)
     }
+    
+    func remove(at: Int) {
+        questions.remove(at: at)
+    }
 }

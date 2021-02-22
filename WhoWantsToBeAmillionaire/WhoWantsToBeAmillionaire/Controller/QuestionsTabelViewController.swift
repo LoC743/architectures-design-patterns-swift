@@ -65,6 +65,13 @@ extension QuestionsTabelViewController: UITableViewDelegate, UITableViewDataSour
         
         return height
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            QuestionsStorage.shared.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
 }
 
 extension QuestionsTabelViewController {
