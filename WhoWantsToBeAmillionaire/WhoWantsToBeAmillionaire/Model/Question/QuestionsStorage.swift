@@ -11,7 +11,7 @@ class QuestionsStorage {
     static var shared = QuestionsStorage()
         
     private let questionsCaretaker = QuestionCaretaker()
-    private(set) lazy var questions: [Question] = {
+    private lazy var questions: [Question] = {
         let loadedQuestions = questionsCaretaker.loadQuestions()
         if loadedQuestions.isEmpty {
             questionsCaretaker.saveQuestions(questions: defaultQuestions)
@@ -57,5 +57,21 @@ class QuestionsStorage {
     
     func remove(at: Int) {
         questions.remove(at: at)
+    }
+    
+    func get() -> [Question] {
+        if questions.isEmpty {
+            questions = defaultQuestions
+        }
+        
+        return questions
+    }
+    
+    func size() -> Int {
+        return questions.count
+    }
+    
+    func isEmpty() -> Bool {
+        return questions.isEmpty
     }
 }

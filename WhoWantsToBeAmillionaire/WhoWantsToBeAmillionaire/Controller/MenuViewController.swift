@@ -139,7 +139,5 @@ class MenuViewController: UIViewController {
         let settingsVC = SettingsViewController()
         
         self.present(settingsVC, animated: true, completion: nil)
-//        Game.shared.clearResults()
-//        showAlert(title: "Результаты", message: "Статистика очищена.")
     }
 }

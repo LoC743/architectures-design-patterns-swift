@@ -24,6 +24,8 @@
 		8A83572225E3BFC1008CCAE0 /* QuestionCaretaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A83572125E3BFC1008CCAE0 /* QuestionCaretaker.swift */; };
 		8A83572525E3C020008CCAE0 /* QuestionsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A83572425E3C020008CCAE0 /* QuestionsStorage.swift */; };
 		8A83572B25E3D1C7008CCAE0 /* QuestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A83572925E3D1C7008CCAE0 /* QuestionTableViewCell.swift */; };
+		8A83573125E3F06A008CCAE0 /* AddNewQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A83573025E3F06A008CCAE0 /* AddNewQuestionViewController.swift */; };
+		8A83573525E3F599008CCAE0 /* QuestionTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A83573425E3F599008CCAE0 /* QuestionTextField.swift */; };
 		8ABF5FA725E01D4B00DE7AFB /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABF5FA625E01D4B00DE7AFB /* Colors.swift */; };
 		8ABF5FAA25E024EC00DE7AFB /* ResultsCaretaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABF5FA925E024EC00DE7AFB /* ResultsCaretaker.swift */; };
 		8ABF5FAD25E02B2A00DE7AFB /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABF5FAC25E02B2A00DE7AFB /* Result.swift */; };
@@ -52,6 +54,8 @@
 		8A83572125E3BFC1008CCAE0 /* QuestionCaretaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionCaretaker.swift; sourceTree = "<group>"; };
 		8A83572425E3C020008CCAE0 /* QuestionsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsStorage.swift; sourceTree = "<group>"; };
 		8A83572925E3D1C7008CCAE0 /* QuestionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionTableViewCell.swift; sourceTree = "<group>"; };
+		8A83573025E3F06A008CCAE0 /* AddNewQuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewQuestionViewController.swift; sourceTree = "<group>"; };
+		8A83573425E3F599008CCAE0 /* QuestionTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionTextField.swift; sourceTree = "<group>"; };
 		8ABF5FA625E01D4B00DE7AFB /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		8ABF5FA925E024EC00DE7AFB /* ResultsCaretaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsCaretaker.swift; sourceTree = "<group>"; };
 		8ABF5FAC25E02B2A00DE7AFB /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
@@ -121,6 +125,7 @@
 				8A12D83C25E14B1E0063E882 /* ShowAlertExtension.swift */,
 				8AEE005725E27BB200D1064D /* SettingsViewController.swift */,
 				8A83571D25E3BE36008CCAE0 /* QuestionsTabelViewController.swift */,
+				8A83573025E3F06A008CCAE0 /* AddNewQuestionViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -156,6 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				8A83572925E3D1C7008CCAE0 /* QuestionTableViewCell.swift */,
+				8A83573425E3F599008CCAE0 /* QuestionTextField.swift */,
 			);
 			path = Questions;
 			sourceTree = "<group>";
@@ -267,7 +273,9 @@
 				8AEE005B25E285D800D1064D /* QuestionsOrder.swift in Sources */,
 				8A83572525E3C020008CCAE0 /* QuestionsStorage.swift in Sources */,
 				8ABF5FA725E01D4B00DE7AFB /* Colors.swift in Sources */,
+				8A83573125E3F06A008CCAE0 /* AddNewQuestionViewController.swift in Sources */,
 				8A1E204425DFCC33002B8439 /* Question.swift in Sources */,
+				8A83573525E3F599008CCAE0 /* QuestionTextField.swift in Sources */,
 				8AEE006225E28EB500D1064D /* QuestionModeCaretaker.swift in Sources */,
 				8ABF5FAA25E024EC00DE7AFB /* ResultsCaretaker.swift in Sources */,
 				8A1E205225E00B22002B8439 /* ResultTableViewCell.swift in Sources */,
@@ -419,7 +427,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9LK5ZZR926;
 				INFOPLIST_FILE = WhoWantsToBeAmillionaire/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -438,7 +446,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9LK5ZZR926;
 				INFOPLIST_FILE = WhoWantsToBeAmillionaire/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

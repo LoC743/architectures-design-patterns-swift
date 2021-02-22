@@ -11,6 +11,8 @@ class QuestionsTabelViewController: UIViewController {
     var addButton = UIButton()
     var tableView = UITableView()
     
+    var questions = QuestionsStorage.shared.get()
+    
     private let reuseCellIdentifier = "QuestionTableViewCell"
     private var testCell = QuestionTableViewCell()
     private let bottomPadding = UIApplication.shared.windows[0].safeAreaInsets.bottom
@@ -23,6 +25,8 @@ class QuestionsTabelViewController: UIViewController {
         setupAddButton()
     }
 }
+
+// MARK: - Настройка TableView
 
 extension QuestionsTabelViewController: UITableViewDelegate, UITableViewDataSource {
     private func setupTableView() {
@@ -43,13 +47,13 @@ extension QuestionsTabelViewController: UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        QuestionsStorage.shared.questions.count
+        return questions.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseCellIdentifier, for: indexPath) as! QuestionTableViewCell
         
-        let question = QuestionsStorage.shared.questions[indexPath.row]
+        let question = questions[indexPath.row]
         
         cell.configure(with: question)
         
@@ -58,7 +62,7 @@ extension QuestionsTabelViewController: UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         testCell = QuestionTableViewCell()
-        let question = QuestionsStorage.shared.questions[indexPath.row]
+        let question = QuestionsStorage.shared.get()[indexPath.row]
         testCell.configure(with: question)
         
         let height = testCell.height + 15
@@ -69,20 +73,29 @@ extension QuestionsTabelViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             QuestionsStorage.shared.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            questions.remove(at: indexPath.row)
+            if questions.isEmpty {
+                tableView.reloadData()
+            } else {
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+            
+            tableView.beginUpdates()
+            tableView.endUpdates()
         }
     }
 }
+
+// MARK: - Настройка кнопки добавить вопрос
 
 extension QuestionsTabelViewController {
     private func setupAddButton() {
         view.addSubview(addButton)
         
-        
         let width: Int = 50
         let height = width
         let xOrigin = (Int(UIScreen.main.bounds.width) - width)/2
-        let yOrigin = Int(UIScreen.main.bounds.height - bottomPadding) - 2*height - 10
+        let yOrigin = Int(UIScreen.main.bounds.height - bottomPadding) - 2*height
         
         let frame = CGRect(
             x: xOrigin,
@@ -91,11 +104,19 @@ extension QuestionsTabelViewController {
             height: height
         )
         addButton.frame = frame
-        addButton.backgroundColor = Colors.textAlternative
+        addButton.backgroundColor = Colors.elementBackground
         addButton.tintColor = Colors.scoreBackground
         addButton.setImage(UIImage(systemName: "plus"), for: .normal)
         addButton.layer.cornerRadius = CGFloat(height/2)
         addButton.layer.borderWidth = 1
-        addButton.layer.borderColor = Colors.text.cgColor
+        addButton.layer.borderColor = Colors.textAlternative.cgColor
+        addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc func addButtonTapped(sender: UIButton!) {
+        let addQuestionVC = AddNewQuestionViewController()
+        addQuestionVC.delegate = self
+        
+        self.present(addQuestionVC, animated: true, completion: nil)
     }
 }
