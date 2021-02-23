@@ -74,4 +74,8 @@ class QuestionsStorage {
     func isEmpty() -> Bool {
         return questions.isEmpty
     }
+    
+    func getLastIndex() -> Int? {
+        return questions.last?.id
+    }
 }

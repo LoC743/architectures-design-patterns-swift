@@ -151,10 +151,22 @@ class AddNewQuestionViewController: UIViewController {
         return true
     }
     
+    private func buildQuestion() -> Question {
+        let builder = QuestionBuilder()
+        builder.set(question: questionTextField.text ?? "")
+        builder.set(answerA: answerATextField.text ?? "")
+        builder.set(answerB: answerBTextField.text ?? "")
+        builder.set(answerC: answerCTextField.text ?? "")
+        builder.set(answerD: answerDTextField.text ?? "")
+        builder.set(correctAnswerIndex: correctAnswerSegmentedControl.selectedSegmentIndex)
+        
+        return builder.build()
+    }
+    
     @objc func addButtonTapped(sender: UIButton!) {
         if checkFields() {
-            let questionText = questionTextField.text ?? ""
-            let question = Question(id: -5, text: questionText, correctAnswer: correctAnswer, answers: answers)
+           let question = buildQuestion()
+            
             QuestionsStorage.shared.add(question: question)
             delegate?.questions.append(question)
             delegate?.tableView.reloadData()
