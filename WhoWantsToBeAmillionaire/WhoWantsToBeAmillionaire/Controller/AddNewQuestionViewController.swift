@@ -16,7 +16,7 @@ class AddNewQuestionViewController: UIViewController {
     var correctAnswerSegmentedControl = UISegmentedControl()
     var addButton = UIButton()
     
-    weak var delegate: QuestionsTabelViewController?
+    weak var delegate: QuestionsTableDelegate?
     
     private lazy var answerTextFields: [QuestionTextField] = {
        return [answerATextField, answerBTextField, answerCTextField, answerDTextField]
@@ -168,8 +168,7 @@ class AddNewQuestionViewController: UIViewController {
            let question = buildQuestion()
             
             QuestionsStorage.shared.add(question: question)
-            delegate?.questions.append(question)
-            delegate?.tableView.reloadData()
+            delegate?.addToTable(question: question)
             self.dismiss(animated: true, completion: nil)
         } else {
             showAlert(title: "Ой!", message: "Кажется Вы задали не все поля.")

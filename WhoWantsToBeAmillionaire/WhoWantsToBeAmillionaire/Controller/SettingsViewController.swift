@@ -117,7 +117,7 @@ class SettingsViewController: UIViewController {
     // MARK: - (Action): Переход к таблице вопросов
     
     @objc func questionsButtonTapped(sender: UIButton!) {
-        let questionsVC = QuestionsTabelViewController()
+        let questionsVC = QuestionsTableViewController()
 
         self.present(questionsVC, animated: true, completion: nil)
     }

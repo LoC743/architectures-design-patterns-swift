@@ -7,7 +7,11 @@
 
 import UIKit
 
-class QuestionsTabelViewController: UIViewController {
+protocol QuestionsTableDelegate: AnyObject {
+    func addToTable(question: Question)
+}
+
+class QuestionsTableViewController: UIViewController {
     var addButton = UIButton()
     var tableView = UITableView()
     
@@ -27,7 +31,7 @@ class QuestionsTabelViewController: UIViewController {
 
 // MARK: - Настройка TableView
 
-extension QuestionsTabelViewController: UITableViewDelegate, UITableViewDataSource {
+extension QuestionsTableViewController: UITableViewDelegate, UITableViewDataSource {
     private func setupTableView() {
         view.addSubview(tableView)
         
@@ -92,7 +96,7 @@ extension QuestionsTabelViewController: UITableViewDelegate, UITableViewDataSour
 
 // MARK: - Настройка кнопки добавить вопрос
 
-extension QuestionsTabelViewController {
+extension QuestionsTableViewController {
     private func setupAddButton() {
         view.addSubview(addButton)
         
@@ -127,5 +131,14 @@ extension QuestionsTabelViewController {
         addQuestionVC.delegate = self
         
         self.present(addQuestionVC, animated: true, completion: nil)
+    }
+}
+
+// MARK: - (Delegate): Добавление нового вопроса
+
+extension QuestionsTableViewController: QuestionsTableDelegate {
+    func addToTable(question: Question) {
+        questions.append(question)
+        tableView.reloadData()
     }
 }
