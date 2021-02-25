@@ -12,6 +12,8 @@ class ResultTableViewCell: UITableViewCell {
     @IBOutlet weak var correctAnswersLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var usedHintsLabel: UILabel!
+    
+    public static let reuseIdentifier = "ResultTableViewCell"
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(false, animated: animated)

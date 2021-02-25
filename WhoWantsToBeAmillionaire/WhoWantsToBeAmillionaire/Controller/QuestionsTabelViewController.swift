@@ -13,7 +13,6 @@ class QuestionsTabelViewController: UIViewController {
     
     var questions = QuestionsStorage.shared.get()
     
-    private let reuseCellIdentifier = "QuestionTableViewCell"
     private var testCell = QuestionTableViewCell()
     private let bottomPadding = UIApplication.shared.windows[0].safeAreaInsets.bottom
     
@@ -43,7 +42,12 @@ extension QuestionsTabelViewController: UITableViewDelegate, UITableViewDataSour
         tableView.dataSource = self
         tableView.backgroundColor = Colors.elementBackground
         tableView.allowsSelection = false
-        tableView.register(QuestionTableViewCell.self, forCellReuseIdentifier: reuseCellIdentifier)
+        tableView.register(QuestionTableViewCell.self, forCellReuseIdentifier: QuestionTableViewCell.reuseCellIdentifier)
+    }
+    
+    override func viewDidLayoutSubviews() {
+          super.viewDidLayoutSubviews()
+          self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 105, right: 0)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -51,7 +55,7 @@ extension QuestionsTabelViewController: UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseCellIdentifier, for: indexPath) as! QuestionTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: QuestionTableViewCell.reuseCellIdentifier, for: indexPath) as! QuestionTableViewCell
         
         let question = questions[indexPath.row]
         
@@ -110,6 +114,11 @@ extension QuestionsTabelViewController {
         addButton.layer.cornerRadius = CGFloat(height/2)
         addButton.layer.borderWidth = 1
         addButton.layer.borderColor = Colors.textAlternative.cgColor
+        addButton.layer.shadowColor = Colors.text.cgColor
+        addButton.layer.shadowOffset = .zero
+        addButton.layer.shadowOpacity = 0.8
+        addButton.layer.shadowRadius = 5.0
+        addButton.layer.masksToBounds = false
         addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
     }
     

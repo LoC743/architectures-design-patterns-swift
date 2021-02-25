@@ -14,6 +14,8 @@ class QuestionTableViewCell: UITableViewCell {
     var answerCLabel = UILabel()
     var answerDLabel = UILabel()
     
+    public static let reuseCellIdentifier = "QuestionTableViewCell"
+    
     private lazy var answerLabels: [UILabel] = {
         return [answerALabel, answerBLabel, answerCLabel, answerDLabel]
     }()
