@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -21,6 +21,9 @@
 		8A1E205225E00B22002B8439 /* ResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E205025E00B22002B8439 /* ResultTableViewCell.swift */; };
 		8A1E205325E00B22002B8439 /* ResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A1E205125E00B22002B8439 /* ResultTableViewCell.xib */; };
 		8A559AE625E291EE00A39A16 /* GameSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A559AE525E291EE00A39A16 /* GameSession.swift */; };
+		8A6DAAB425E7C3C9003D3F9E /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6DAAB325E7C3C9003D3F9E /* NetworkManager.swift */; };
+		8A6DAAB925E7C408003D3F9E /* CustomAlomafireSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6DAAB825E7C408003D3F9E /* CustomAlomafireSession.swift */; };
+		8A6DAABD25E7C58A003D3F9E /* QuestionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6DAABC25E7C58A003D3F9E /* QuestionList.swift */; };
 		8A7740B525E5053B00BC550E /* QuestionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7740B425E5053B00BC550E /* QuestionBuilder.swift */; };
 		8A83571E25E3BE36008CCAE0 /* QuestionsTabelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A83571D25E3BE36008CCAE0 /* QuestionsTabelViewController.swift */; };
 		8A83572225E3BFC1008CCAE0 /* QuestionCaretaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A83572125E3BFC1008CCAE0 /* QuestionCaretaker.swift */; };
@@ -55,6 +58,9 @@
 		8A1E205025E00B22002B8439 /* ResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultTableViewCell.swift; sourceTree = "<group>"; };
 		8A1E205125E00B22002B8439 /* ResultTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultTableViewCell.xib; sourceTree = "<group>"; };
 		8A559AE525E291EE00A39A16 /* GameSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSession.swift; sourceTree = "<group>"; };
+		8A6DAAB325E7C3C9003D3F9E /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		8A6DAAB825E7C408003D3F9E /* CustomAlomafireSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlomafireSession.swift; sourceTree = "<group>"; };
+		8A6DAABC25E7C58A003D3F9E /* QuestionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionList.swift; sourceTree = "<group>"; };
 		8A7740B425E5053B00BC550E /* QuestionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionBuilder.swift; sourceTree = "<group>"; };
 		8A83571D25E3BE36008CCAE0 /* QuestionsTabelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsTabelViewController.swift; sourceTree = "<group>"; };
 		8A83572125E3BFC1008CCAE0 /* QuestionCaretaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionCaretaker.swift; sourceTree = "<group>"; };
@@ -92,7 +98,6 @@
 				5DC82AA27F14E2C44885619B /* Pods-WhoWantsToBeAmillionaire.debug.xcconfig */,
 				98A2A606272AFFE0BC96BD4F /* Pods-WhoWantsToBeAmillionaire.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -123,6 +128,7 @@
 				8A1E203B25DFCAF1002B8439 /* Model */,
 				8A1E202525DFC95C002B8439 /* AppDelegate.swift */,
 				8A1E203325DFC95D002B8439 /* Info.plist */,
+				8A6DAAB625E7C3CE003D3F9E /* Network */,
 			);
 			path = WhoWantsToBeAmillionaire;
 			sourceTree = "<group>";
@@ -182,6 +188,15 @@
 			path = Results;
 			sourceTree = "<group>";
 		};
+		8A6DAAB625E7C3CE003D3F9E /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				8A6DAAB325E7C3C9003D3F9E /* NetworkManager.swift */,
+				8A6DAAB825E7C408003D3F9E /* CustomAlomafireSession.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		8A83572825E3D1B0008CCAE0 /* Questions */ = {
 			isa = PBXGroup;
 			children = (
@@ -208,6 +223,7 @@
 				8A83572125E3BFC1008CCAE0 /* QuestionCaretaker.swift */,
 				8A83572425E3C020008CCAE0 /* QuestionsStorage.swift */,
 				8A7740B425E5053B00BC550E /* QuestionBuilder.swift */,
+				8A6DAABC25E7C58A003D3F9E /* QuestionList.swift */,
 			);
 			path = Question;
 			sourceTree = "<group>";
@@ -353,6 +369,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A1E204D25E006A5002B8439 /* ResultsTableViewController.swift in Sources */,
+				8A6DAABD25E7C58A003D3F9E /* QuestionList.swift in Sources */,
 				8A83572B25E3D1C7008CCAE0 /* QuestionTableViewCell.swift in Sources */,
 				8A12D83D25E14B1E0063E882 /* ShowAlertExtension.swift in Sources */,
 				8A83572225E3BFC1008CCAE0 /* QuestionCaretaker.swift in Sources */,
@@ -365,9 +382,11 @@
 				8A83573525E3F599008CCAE0 /* QuestionTextField.swift in Sources */,
 				8AEE006225E28EB500D1064D /* QuestionModeCaretaker.swift in Sources */,
 				8ABF5FAA25E024EC00DE7AFB /* ResultsCaretaker.swift in Sources */,
+				8A6DAAB925E7C408003D3F9E /* CustomAlomafireSession.swift in Sources */,
 				8A1E205225E00B22002B8439 /* ResultTableViewCell.swift in Sources */,
 				8A12D83A25E14A710063E882 /* DateFormatter.swift in Sources */,
 				8A1E204A25DFEA54002B8439 /* Game.swift in Sources */,
+				8A6DAAB425E7C3C9003D3F9E /* NetworkManager.swift in Sources */,
 				8A559AE625E291EE00A39A16 /* GameSession.swift in Sources */,
 				8ABF5FAD25E02B2A00DE7AFB /* Result.swift in Sources */,
 				8AD71A3625E7BE8600284761 /* Icons.swift in Sources */,
