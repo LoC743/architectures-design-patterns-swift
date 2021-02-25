@@ -27,6 +27,7 @@ class GameViewContoller: UIViewController {
     var secondLife: Bool = false
     var questions: [Question] = []
     weak var gameSessionDelegate: GameSession?
+    private let hintManager: HintManager = HintManager()
     
     init(questions: [Question], gameSesson: GameSession) {
         super.init(nibName: nil, bundle: nil)
@@ -189,26 +190,20 @@ class GameViewContoller: UIViewController {
         if currentQuestionIndex < questions.count {
             let question = questions[currentQuestionIndex]
             
-            var buttonsDisabled: Int = 0
-            var lastRand: Int = -1
-            let answers = [answerA, answerB, answerC, answerD]
-            while buttonsDisabled != 2 {
-                let randIndex = Int.random(in: 0..<question.answers.count)
-                if question.answers[randIndex] != question.correctAnswer &&
-                    randIndex != lastRand &&
-                    answers[randIndex].backgroundColor != .red
-                    {
-                    answers[randIndex].setTitle("", for: .normal)
-                    answers[randIndex].isUserInteractionEnabled = false
-                    answers[randIndex].isEnabled = false
-                    lastRand = randIndex
-                    buttonsDisabled += 1
+            let answersToRemove = hintManager.fiftyFifty(question: question)
+            print(answersToRemove)
+            
+            [answerA, answerB, answerC, answerD].forEach { (button) in
+                if let titleLabel = button.titleLabel,
+                   let text = titleLabel.text,
+                   answersToRemove.contains(text) {
+                    button.setTitle("", for: .normal)
+                    button.isUserInteractionEnabled = false
+                    button.isEnabled = false
                 }
             }
         }
-        
-        Game.shared.session?.usedHints.append(.half)
-        
+
         halfHintButton.isUserInteractionEnabled = false
         halfHintButton.isEnabled = false
     }
