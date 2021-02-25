@@ -116,7 +116,16 @@ class MenuViewController: UIViewController {
     // MARK: - Action-ы кнопок
 
     @objc func playButtonTapped(sender: UIButton!) {
-        let questions = QuestionsInOrderFacade().get()
+        QuestionsInOrderFacade().get { [weak self] (questions) in
+            guard let self = self else { return }
+            self.moveToGame(questions: questions)
+        } failure: { [weak self] in
+            guard let self = self else { return }
+            self.showAlert(title: "Ой!", message: "У вас нет вопросов. Вы можете подключиться к сети, чтобы загрузить стандартные или добавьте свои.")
+        }
+    }
+    
+    private func moveToGame(questions: [Question]) {
         let gameSession = GameSession(questionsCount: questions.count)
         Game.shared.session = gameSession
         

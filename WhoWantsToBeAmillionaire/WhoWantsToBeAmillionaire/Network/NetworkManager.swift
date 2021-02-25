@@ -17,7 +17,7 @@ class NetworkManager {
     }
     
     @discardableResult
-    func loadQuestionList(count: Int, offset: Int, completion: @escaping (QuestionList?) -> Void) -> Request? {
+    func loadQuestionList(completion: @escaping (QuestionList?) -> Void, failure: @escaping () -> Void) -> Request? {
 
         let url = Paths.questions.rawValue
 
@@ -26,6 +26,7 @@ class NetworkManager {
                   let questionList = try? JSONDecoder().decode(QuestionList.self, from: data)
             else {
                 print("Failed to pase questions JSON!")
+                failure()
                 return
             }
 

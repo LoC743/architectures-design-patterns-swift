@@ -15,7 +15,7 @@ class QuestionsTableViewController: UIViewController {
     var addButton = UIButton()
     var tableView = UITableView()
     
-    var questions = QuestionsStorage.shared.get()
+    var questions: [Question] = []
     
     private var testCell = QuestionTableViewCell()
     private let bottomPadding = UIApplication.shared.windows[0].safeAreaInsets.bottom
@@ -26,6 +26,16 @@ class QuestionsTableViewController: UIViewController {
         
         setupTableView()
         setupAddButton()
+        loadQuestionsData()
+    }
+    
+    private func loadQuestionsData() {
+        QuestionsStorage.shared.get { [weak self] (questions) in
+            guard let self = self else { return }
+            self.questions = questions
+            self.tableView.reloadData()
+        } failure: { }
+
     }
 }
 
@@ -70,7 +80,7 @@ extension QuestionsTableViewController: UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         testCell = QuestionTableViewCell()
-        let question = QuestionsStorage.shared.get()[indexPath.row]
+        let question = questions[indexPath.row]
         testCell.configure(with: question)
         
         let height = testCell.height + 15

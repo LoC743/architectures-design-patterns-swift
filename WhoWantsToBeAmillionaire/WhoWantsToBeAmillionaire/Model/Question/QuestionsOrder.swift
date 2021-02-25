@@ -11,20 +11,29 @@ enum QuestionsOrder: Int {
 }
 
 protocol QuestionsOrderStrategy: AnyObject {
-    func loadQuestions() -> [Question]
+    func loadQuestions(completion: @escaping ([Question]) -> Void,
+                       failure: @escaping () -> Void)
 }
 
 class QuestionsSerialOrderStrategy: QuestionsOrderStrategy {
-    func loadQuestions() -> [Question] {
-        let questions = QuestionsStorage.shared.get()
-        
-        return questions
+    func loadQuestions(completion: @escaping ([Question]) -> Void,
+                       failure: @escaping () -> Void) {
+        QuestionsStorage.shared.get { (questions) in
+            completion(questions)
+        } failure: {
+            failure()
+        }
     }
 }
 
 class QuestionsRandomOrderStrategy: QuestionsOrderStrategy {
-    func loadQuestions() -> [Question] {
-        return QuestionsStorage.shared.get().shuffled()
+    func loadQuestions(completion: @escaping ([Question]) -> Void,
+                       failure: @escaping () -> Void) {
+        QuestionsStorage.shared.get { (questions) in
+            completion(questions.shuffled())
+        } failure: {
+            failure()
+        }
     }
 }
 
@@ -40,7 +49,13 @@ class QuestionsInOrderFacade {
         }
     }()
     
-    func get() -> [Question] {
-        return strategy.loadQuestions()
+    func get(completion: @escaping ([Question]) -> Void,
+             failure: @escaping () -> Void) {
+        strategy.loadQuestions { (questions) in
+            completion(questions)
+        } failure: {
+            failure()
+        }
+
     }
 }
