@@ -1,26 +1,30 @@
 //
-//  Question.swift
+//  QuestionsStorage.swift
 //  WhoWantsToBeAmillionaire
 //
-//  Created by Alexey on 19.02.2021.
+//  Created by Alexey on 22.02.2021.
 //
 
-struct Question {
-    let id: Int
-    let text: String
-    let correctAnswer: String
-    var correctAnswerIndex: Int? {
-        return answers.firstIndex(of: correctAnswer)
-    }
-    let answers: [String]
-}
+import Foundation
 
 class QuestionsStorage {
     static var shared = QuestionsStorage()
-    
-    private init() {}
-    
-    var getData = {
+        
+    private let questionsCaretaker = QuestionCaretaker()
+    private lazy var questions: [Question] = {
+        let loadedQuestions = questionsCaretaker.loadQuestions()
+        if loadedQuestions.isEmpty {
+            questionsCaretaker.saveQuestions(questions: defaultQuestions)
+            return defaultQuestions
+        }
+        
+        return loadedQuestions
+    }() {
+        didSet {
+            questionsCaretaker.saveQuestions(questions: questions)
+        }
+    }
+    private let defaultQuestions = {
         return [
             Question(id: 1, text: "Как характеризуют человека, одетого во всё новое?", correctAnswer: "одет с иголочки",
                      answers: ["одет с иголочки", "одет с напёрсточка", "одет с булавочки", "одет с ниточки"]),
@@ -44,4 +48,34 @@ class QuestionsStorage {
                      answers: ["устраивать баллы и ассамблеи", "ездить на каретах", "строить каменные дома", "казнить купцов"])
         ]
     }()
+    
+    private init() {}
+    
+    func add(question: Question) {
+        questions.append(question)
+    }
+    
+    func remove(at: Int) {
+        questions.remove(at: at)
+    }
+    
+    func get() -> [Question] {
+        if questions.isEmpty {
+            questions = defaultQuestions
+        }
+        
+        return questions
+    }
+    
+    func size() -> Int {
+        return questions.count
+    }
+    
+    func isEmpty() -> Bool {
+        return questions.isEmpty
+    }
+    
+    func getLastIndex() -> Int? {
+        return questions.last?.id
+    }
 }

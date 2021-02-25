@@ -22,7 +22,8 @@ class GameViewContoller: UIViewController {
     var answerC = UIButton()
     var answerD = UIButton()
     
-    var money: Int = 50000 // start from: 50 000
+    var money: Int = 20000 // start from: 20 000
+    let moneyMultiplier: Double = 2.0
     var secondLife: Bool = false
     var questions: [Question] = []
     weak var gameSessionDelegate: GameSession?
@@ -74,6 +75,9 @@ class GameViewContoller: UIViewController {
         scoreLabel.textAlignment = .center
         scoreLabel.textColor = Colors.textAlternative
         scoreLabel.backgroundColor = Colors.scoreBackground
+        // Подписка на уведомления
+        let notificationName = Notification.Name(Notifications.currentQuestion.rawValue)
+        NotificationCenter.default.addObserver(self, selector: #selector(currentQuestionValueChanged), name: notificationName, object: nil)
     }
     
     private func setupQuestionLabel() {
@@ -108,36 +112,21 @@ class GameViewContoller: UIViewController {
         let sideOffset = 15
         let bottomOffset = 20
         let height = 50
-        
-        answerA.frame = CGRect(
-            x: sideOffset,
-            y: Int(questionLabel.frame.maxY) + bottomOffset,
-            width: Int(view.bounds.width) - sideOffset*2,
-            height: height
-        )
-        
-        answerB.frame = CGRect(
-            x: sideOffset,
-            y: Int(answerA.frame.maxY) + bottomOffset,
-            width: Int(view.bounds.width) - sideOffset*2,
-            height: height
-        )
-        
-        answerC.frame = CGRect(
-            x: sideOffset,
-            y: Int(answerB.frame.maxY) + bottomOffset,
-            width: Int(view.bounds.width) - sideOffset*2,
-            height: height
-        )
-        
-        answerD.frame = CGRect(
-            x: sideOffset,
-            y: Int(answerC.frame.maxY) + bottomOffset,
-            width: Int(view.bounds.width) - sideOffset*2,
-            height: height
-        )
-        
-        [answerA, answerB, answerC, answerD].forEach { (button) in
+        let width = Int(view.bounds.width) - sideOffset*2
+
+        let answerButtons = [answerA, answerB, answerC, answerD]
+        for (index, button) in answerButtons.enumerated() {
+            var yOffset = Int(questionLabel.frame.maxY) + bottomOffset
+            if index != 0 {
+                yOffset = Int(answerButtons[index - 1].frame.maxY) + bottomOffset
+            }
+            
+            button.frame = CGRect(
+                x: sideOffset,
+                y: yOffset,
+                width: width,
+                height: height
+            )
             button.setTitleColor(Colors.text, for: .normal)
             button.backgroundColor = Colors.elementBackground
             button.layer.cornerRadius = CGFloat(height/2)
@@ -160,35 +149,19 @@ class GameViewContoller: UIViewController {
         let offset = (Int(view.bounds.width) - width*4)/5
         let y = Int(view.frame.height - bottomPadding) - width/2 - 50
         
-        halfHintButton.frame = CGRect(
-            x: offset,
-            y: y,
-            width: width,
-            height: height
-        )
-        
-        quizHintButton.frame = CGRect(
-            x: Int(halfHintButton.frame.maxX) + offset,
-            y: y,
-            width: width,
-            height: height
-        )
-        
-        phoneCallHintButton.frame = CGRect(
-            x: Int(quizHintButton.frame.maxX) + offset,
-            y: y,
-            width: width,
-            height: height
-        )
-        
-        tryHintButton.frame = CGRect(
-            x: Int(phoneCallHintButton.frame.maxX) + offset,
-            y: y,
-            width: width,
-            height: height
-        )
-        
-        [halfHintButton, quizHintButton, phoneCallHintButton, tryHintButton].forEach { (button) in
+        let hintButtons = [halfHintButton, quizHintButton, phoneCallHintButton, tryHintButton]
+        for (index, button) in hintButtons.enumerated() {
+            var xOffset = offset
+            if index != 0 {
+                xOffset += Int(hintButtons[index - 1].frame.maxX)
+            }
+            
+            button.frame = CGRect(
+                x: xOffset,
+                y: y,
+                width: width,
+                height: height
+            )
             button.setTitleColor(Colors.text, for: .normal)
             button.tintColor = Colors.text
             button.layer.cornerRadius = CGFloat(height/2)
@@ -331,7 +304,7 @@ class GameViewContoller: UIViewController {
         if currentQuestionIndex < questions.count {
             let question = questions[currentQuestionIndex]
             
-            scoreLabel.text = "Вопрос №\(currentQuestionIndex+1). Сумма: \(money) ₽"
+            gameSessionDelegate?.currentQuestion += 1
             questionLabel.text = question.text
             for (i, button) in [answerA, answerB, answerC, answerD].enumerated() {
                 button.setTitle(question.answers[i], for: .normal)
@@ -354,11 +327,18 @@ class GameViewContoller: UIViewController {
     }
     
     private func correctAnswer() {
+        // Сохранить результаты в сессию
         gameSessionDelegate?.correctAnswers += 1
         gameSessionDelegate?.score = money
-        money *= 2
+        // Обновить данные экран
+        increaseMoney()
         fillGameData()
         enableButtons()
+    }
+    
+    private func increaseMoney() {
+        let moneyDouble: Double = Double(money) * moneyMultiplier
+        money = Int(moneyDouble)
     }
     
     // MARK: - Action - нажатие на кнопку с ответом
@@ -394,5 +374,18 @@ class GameViewContoller: UIViewController {
     
     private func backToMenu(_: UIAlertAction) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    // MARK: - (Selector) наблюдает за изменением текущего вопроса
+    @objc func currentQuestionValueChanged() {
+        guard let delegate = gameSessionDelegate else { return }
+        let percent = Double(delegate.correctAnswers)/Double(delegate.questionsCount) * 100
+        scoreLabel.text = "Вопрос №\(delegate.currentQuestion) (\(Int(percent))%). Сумма: \(money) ₽"
+    }
+    
+    // MARK: - Деструктор
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
