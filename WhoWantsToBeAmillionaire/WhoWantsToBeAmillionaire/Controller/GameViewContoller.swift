@@ -185,43 +185,31 @@ class GameViewContoller: UIViewController {
     // MARK: - Actions, Обработка нажатий на кнопки подсказок
     
     @objc func halfHintButtonTapped(sender: UIButton!) {
-        guard let gameSession = gameSessionDelegate else { return }
-        let currentQuestionIndex = gameSession.correctAnswers
-        if currentQuestionIndex < questions.count {
-            let question = questions[currentQuestionIndex]
-            
-            let answersToRemove = hintManager.fiftyFifty(question: question)
-            print(answersToRemove)
-            
-            [answerA, answerB, answerC, answerD].forEach { (button) in
-                if let titleLabel = button.titleLabel,
-                   let text = titleLabel.text,
-                   answersToRemove.contains(text) {
-                    button.setTitle("", for: .normal)
-                    button.isUserInteractionEnabled = false
-                    button.isEnabled = false
-                }
+        guard let question = getCurrentQuestion() else { return }
+        let answersToRemove = hintManager.fiftyFifty(question: question)
+        
+        [answerA, answerB, answerC, answerD].forEach { (button) in
+            if let titleLabel = button.titleLabel,
+               let text = titleLabel.text,
+               answersToRemove.contains(text) {
+                button.setTitle("", for: .normal)
+                button.isUserInteractionEnabled = false
+                button.isEnabled = false
             }
         }
-
+        
         halfHintButton.isUserInteractionEnabled = false
         halfHintButton.isEnabled = false
     }
     
     @objc func quizHintButtonTapped(sender: UIButton!) {
-        guard let gameSession = gameSessionDelegate else { return }
-        let currentQuestionIndex = gameSession.correctAnswers
-        if currentQuestionIndex < questions.count {
-            let question = questions[currentQuestionIndex]
-            
-            let randIndex = Int.random(in: 0..<question.answers.count)
-            showAlert(title: "Подсказка зала", message: "Большинство проголосовало за \(randIndex+1) ответ.")
-            
-            Game.shared.session?.usedHints.append(.quiz)
-            
-            quizHintButton.isUserInteractionEnabled = false
-            quizHintButton.isEnabled = false
-        }
+        guard let question = getCurrentQuestion() else { return }
+        
+        let randAnswerIndex = hintManager.hallHelp(question: question)
+        showAlert(title: "Подсказка зала", message: "Большинство проголосовало за \(randAnswerIndex+1) ответ.")
+        
+        quizHintButton.isUserInteractionEnabled = false
+        quizHintButton.isEnabled = false
     }
     
     @objc func phoneCallHintButtonTapped(sender: UIButton!) {
@@ -334,6 +322,16 @@ class GameViewContoller: UIViewController {
     private func increaseMoney() {
         let moneyDouble: Double = Double(money) * moneyMultiplier
         money = Int(moneyDouble)
+    }
+    
+    private func getCurrentQuestion() -> Question? {
+        guard let gameSession = gameSessionDelegate else { return nil }
+        let currentQuestionIndex = gameSession.correctAnswers
+        if currentQuestionIndex < questions.count {
+            return questions[currentQuestionIndex]
+        }
+        
+        return nil
     }
     
     // MARK: - Action - нажатие на кнопку с ответом

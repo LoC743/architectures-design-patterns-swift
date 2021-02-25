@@ -21,4 +21,11 @@ class HintManager {
         
         return withoutCorrentAnswers
     }
+    
+    func hallHelp(question: Question) -> Int {
+        Game.shared.session?.usedHints.append(.quiz)
+        let randIndex = Int.random(in: 0..<question.answers.count)
+        
+        return randIndex
+    }
 }
