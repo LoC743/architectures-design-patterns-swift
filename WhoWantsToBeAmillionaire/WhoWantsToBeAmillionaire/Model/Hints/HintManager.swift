@@ -43,4 +43,10 @@ class HintManager {
   
        return friendGuessIndex
     }
+    
+    func secondTry() -> Bool {
+        Game.shared.session?.usedHints.append(.tryToAnswer)
+        
+        return true
+    }
 }

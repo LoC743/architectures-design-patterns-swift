@@ -223,9 +223,7 @@ class GameViewContoller: UIViewController {
     }
     
     @objc func tryHintButtonTapped(sender: UIButton!) {
-        secondLife = true
-        
-        Game.shared.session?.usedHints.append(.tryToAnswer)
+        secondLife = hintManager.secondTry()
         
         tryHintButton.isUserInteractionEnabled = false
         tryHintButton.isEnabled = false
