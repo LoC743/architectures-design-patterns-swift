@@ -169,16 +169,16 @@ class GameViewContoller: UIViewController {
             button.backgroundColor = Colors.elementBackground
         }
         
-        halfHintButton.setImage(UIImage(named: "half"), for: .normal)
+        halfHintButton.setImage(Icons.fiftyFiftyHint, for: .normal)
         halfHintButton.addTarget(self, action: #selector(halfHintButtonTapped), for: .touchUpInside)
         
-        quizHintButton.setImage(UIImage(systemName: "person.3"), for: .normal)
+        quizHintButton.setImage(Icons.hallHelpHint, for: .normal)
         quizHintButton.addTarget(self, action: #selector(quizHintButtonTapped), for: .touchUpInside)
         
-        phoneCallHintButton.setImage(UIImage(named: "phone"), for: .normal)
+        phoneCallHintButton.setImage(Icons.phoneCallHint, for: .normal)
         phoneCallHintButton.addTarget(self, action: #selector(phoneCallHintButtonTapped), for: .touchUpInside)
         
-        tryHintButton.setImage(UIImage(named: "secondTry"), for: .normal)
+        tryHintButton.setImage(Icons.secondTry, for: .normal)
         tryHintButton.addTarget(self, action: #selector(tryHintButtonTapped), for: .touchUpInside)
     }
     

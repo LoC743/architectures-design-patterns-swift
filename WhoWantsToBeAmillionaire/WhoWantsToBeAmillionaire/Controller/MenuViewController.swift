@@ -49,7 +49,7 @@ class MenuViewController: UIViewController {
         )
         
         iconImageView.frame = frame
-        iconImageView.image = UIImage(named: "icon")
+        iconImageView.image = Icons.main
     }
     
     private func setupPlayButton(_ offset: Int, _ height: Int) {
