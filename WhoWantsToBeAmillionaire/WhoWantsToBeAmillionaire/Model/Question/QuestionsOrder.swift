@@ -24,10 +24,7 @@ class QuestionsSerialOrderStrategy: QuestionsOrderStrategy {
 
 class QuestionsRandomOrderStrategy: QuestionsOrderStrategy {
     func loadQuestions() -> [Question] {
-        var questions = QuestionsStorage.shared.get()
-        questions.shuffle()
-        
-        return questions
+        return QuestionsStorage.shared.get().shuffled()
     }
 }
 
