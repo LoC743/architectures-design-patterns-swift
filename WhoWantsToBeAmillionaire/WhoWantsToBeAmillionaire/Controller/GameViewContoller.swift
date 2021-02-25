@@ -186,8 +186,8 @@ class GameViewContoller: UIViewController {
     
     @objc func halfHintButtonTapped(sender: UIButton!) {
         guard let question = getCurrentQuestion() else { return }
-        let answersToRemove = hintManager.fiftyFifty(question: question)
         
+        let answersToRemove = hintManager.fiftyFifty(question: question)
         [answerA, answerB, answerC, answerD].forEach { (button) in
             if let titleLabel = button.titleLabel,
                let text = titleLabel.text,
@@ -213,27 +213,13 @@ class GameViewContoller: UIViewController {
     }
     
     @objc func phoneCallHintButtonTapped(sender: UIButton!) {
-        guard let gameSession = gameSessionDelegate else { return }
-        let currentQuestionIndex = gameSession.correctAnswers
-        if currentQuestionIndex < questions.count {
-            let question = questions[currentQuestionIndex]
-            
-            var answer = 1
-            let isFriendSmart = Bool.random()
-            if isFriendSmart,
-               let correctAnswerIndex = question.correctAnswerIndex {
-                answer = correctAnswerIndex + 1
-            } else {
-                let randIndex = Int.random(in: 0..<question.answers.count)
-                answer = randIndex + 1
-            }
-            showAlert(title: "Звонок другу", message: "Ваш друг считает что правильный ответ № \(answer).")
-            
-            Game.shared.session?.usedHints.append(.phoneCall)
-            
-            phoneCallHintButton.isUserInteractionEnabled = false
-            phoneCallHintButton.isEnabled = false
-        }
+        guard let question = getCurrentQuestion() else { return }
+        
+        let friendGuessIndex = hintManager.callFriend(question: question)
+        showAlert(title: "Звонок другу", message: "Ваш друг считает что правильный ответ № \(friendGuessIndex+1).")
+        
+        phoneCallHintButton.isUserInteractionEnabled = false
+        phoneCallHintButton.isEnabled = false
     }
     
     @objc func tryHintButtonTapped(sender: UIButton!) {
@@ -269,7 +255,7 @@ class GameViewContoller: UIViewController {
             case .quiz:
                 quizHintButton.isEnabled = false
                 quizHintButton.isUserInteractionEnabled = false
-            case .phoneCall:
+            case .friendCall:
                 phoneCallHintButton.isEnabled = false
                 phoneCallHintButton.isUserInteractionEnabled = false
             case .tryToAnswer:

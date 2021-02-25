@@ -10,7 +10,7 @@ import Foundation
 enum Hints {
     case half
     case quiz
-    case phoneCall
+    case friendCall
     case tryToAnswer
 }
 
