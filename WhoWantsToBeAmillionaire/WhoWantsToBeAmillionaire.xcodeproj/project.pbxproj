@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0DD16FAAC274ECA52D685354 /* Pods_WhoWantsToBeAmillionaire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF0CC97CD324F0DCD8F67979 /* Pods_WhoWantsToBeAmillionaire.framework */; };
 		8A12D83A25E14A710063E882 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A12D83925E14A710063E882 /* DateFormatter.swift */; };
 		8A12D83D25E14B1E0063E882 /* ShowAlertExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A12D83C25E14B1E0063E882 /* ShowAlertExtension.swift */; };
 		8A1E202625DFC95C002B8439 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E202525DFC95C002B8439 /* AppDelegate.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5DC82AA27F14E2C44885619B /* Pods-WhoWantsToBeAmillionaire.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhoWantsToBeAmillionaire.debug.xcconfig"; path = "Target Support Files/Pods-WhoWantsToBeAmillionaire/Pods-WhoWantsToBeAmillionaire.debug.xcconfig"; sourceTree = "<group>"; };
 		8A12D83925E14A710063E882 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		8A12D83C25E14B1E0063E882 /* ShowAlertExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlertExtension.swift; sourceTree = "<group>"; };
 		8A1E202225DFC95C002B8439 /* WhoWantsToBeAmillionaire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhoWantsToBeAmillionaire.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,6 +70,8 @@
 		8AEE005725E27BB200D1064D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		8AEE005A25E285D800D1064D /* QuestionsOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsOrder.swift; sourceTree = "<group>"; };
 		8AEE006125E28EB500D1064D /* QuestionModeCaretaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionModeCaretaker.swift; sourceTree = "<group>"; };
+		98A2A606272AFFE0BC96BD4F /* Pods-WhoWantsToBeAmillionaire.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhoWantsToBeAmillionaire.release.xcconfig"; path = "Target Support Files/Pods-WhoWantsToBeAmillionaire/Pods-WhoWantsToBeAmillionaire.release.xcconfig"; sourceTree = "<group>"; };
+		DF0CC97CD324F0DCD8F67979 /* Pods_WhoWantsToBeAmillionaire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WhoWantsToBeAmillionaire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,17 +79,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DD16FAAC274ECA52D685354 /* Pods_WhoWantsToBeAmillionaire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B5C4C67E47C4EB6CF48DDE7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5DC82AA27F14E2C44885619B /* Pods-WhoWantsToBeAmillionaire.debug.xcconfig */,
+				98A2A606272AFFE0BC96BD4F /* Pods-WhoWantsToBeAmillionaire.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		8A1E201925DFC95C002B8439 = {
 			isa = PBXGroup;
 			children = (
 				8A1E202425DFC95C002B8439 /* WhoWantsToBeAmillionaire */,
 				8A1E202325DFC95C002B8439 /* Products */,
+				3B5C4C67E47C4EB6CF48DDE7 /* Pods */,
+				D6B9AE9401F13A111827435F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -213,6 +230,14 @@
 			path = Result;
 			sourceTree = "<group>";
 		};
+		D6B9AE9401F13A111827435F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DF0CC97CD324F0DCD8F67979 /* Pods_WhoWantsToBeAmillionaire.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -220,9 +245,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8A1E203625DFC95D002B8439 /* Build configuration list for PBXNativeTarget "WhoWantsToBeAmillionaire" */;
 			buildPhases = (
+				088C846E158C7614B529FB58 /* [CP] Check Pods Manifest.lock */,
 				8A1E201E25DFC95C002B8439 /* Sources */,
 				8A1E201F25DFC95C002B8439 /* Frameworks */,
 				8A1E202025DFC95C002B8439 /* Resources */,
+				2496A5C8194EC881D483E053 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -277,6 +304,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		088C846E158C7614B529FB58 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WhoWantsToBeAmillionaire-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2496A5C8194EC881D483E053 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WhoWantsToBeAmillionaire/Pods-WhoWantsToBeAmillionaire-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WhoWantsToBeAmillionaire/Pods-WhoWantsToBeAmillionaire-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WhoWantsToBeAmillionaire/Pods-WhoWantsToBeAmillionaire-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8A1E201E25DFC95C002B8439 /* Sources */ = {
@@ -443,6 +512,7 @@
 		};
 		8A1E203725DFC95D002B8439 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5DC82AA27F14E2C44885619B /* Pods-WhoWantsToBeAmillionaire.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -462,6 +532,7 @@
 		};
 		8A1E203825DFC95D002B8439 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 98A2A606272AFFE0BC96BD4F /* Pods-WhoWantsToBeAmillionaire.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
