@@ -11,12 +11,12 @@ enum QuestionsOrder: Int {
 }
 
 protocol QuestionsOrderStrategy: AnyObject {
-    func loadQuestions(completion: @escaping ([Question]) -> Void,
+    func loadQuestions(completion: @escaping ([QuestionModel]) -> Void,
                        failure: @escaping () -> Void)
 }
 
 class QuestionsSerialOrderStrategy: QuestionsOrderStrategy {
-    func loadQuestions(completion: @escaping ([Question]) -> Void,
+    func loadQuestions(completion: @escaping ([QuestionModel]) -> Void,
                        failure: @escaping () -> Void) {
         QuestionsStorage.shared.get { (questions) in
             completion(questions)
@@ -27,7 +27,7 @@ class QuestionsSerialOrderStrategy: QuestionsOrderStrategy {
 }
 
 class QuestionsRandomOrderStrategy: QuestionsOrderStrategy {
-    func loadQuestions(completion: @escaping ([Question]) -> Void,
+    func loadQuestions(completion: @escaping ([QuestionModel]) -> Void,
                        failure: @escaping () -> Void) {
         QuestionsStorage.shared.get { (questions) in
             completion(questions.shuffled())
@@ -39,6 +39,7 @@ class QuestionsRandomOrderStrategy: QuestionsOrderStrategy {
 
 class QuestionsInOrderFacade {
     let mode: QuestionsOrder = Game.shared.questionsMode
+    private let viewModelFactory = QuestionViewModelFactory()
     
     private lazy var strategy: QuestionsOrderStrategy = {
         switch mode {
@@ -49,10 +50,11 @@ class QuestionsInOrderFacade {
         }
     }()
     
-    func get(completion: @escaping ([Question]) -> Void,
+    func get(completion: @escaping ([QuestionViewModel]) -> Void,
              failure: @escaping () -> Void) {
-        strategy.loadQuestions { (questions) in
-            completion(questions)
+        strategy.loadQuestions { [weak self] (questions) in
+            guard let self = self else { return }
+            completion(self.viewModelFactory.constructViewModel(from: questions))
         } failure: {
             failure()
         }

@@ -25,11 +25,12 @@ class GameViewContoller: UIViewController {
     var money: Int = 20000 // start from: 20 000
     let moneyMultiplier: Double = 2.0
     var secondLife: Bool = false
-    var questions: [Question] = []
+    var questions: [QuestionViewModel] = []
     weak var gameSessionDelegate: GameSession?
     private let hintManager: HintManager = HintManager()
+    private let viewModelFactory = QuestionViewModelFactory()
     
-    init(questions: [Question], gameSesson: GameSession) {
+    init(questions: [QuestionViewModel], gameSesson: GameSession) {
         super.init(nibName: nil, bundle: nil)
         self.questions = questions
         self.gameSessionDelegate = gameSesson
@@ -308,7 +309,7 @@ class GameViewContoller: UIViewController {
         money = Int(moneyDouble)
     }
     
-    private func getCurrentQuestion() -> Question? {
+    private func getCurrentQuestion() -> QuestionViewModel? {
         guard let gameSession = gameSessionDelegate else { return nil }
         let currentQuestionIndex = gameSession.correctAnswers
         if currentQuestionIndex < questions.count {

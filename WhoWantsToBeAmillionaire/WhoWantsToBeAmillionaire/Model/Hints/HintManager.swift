@@ -8,7 +8,7 @@
 import Foundation
 
 class HintManager {
-    func fiftyFifty(question: Question) -> [String] {
+    func fiftyFifty(question: QuestionViewModel) -> [String] {
         Game.shared.session?.usedHints.append(.half)
         var withoutCorrentAnswers: [String] = {
             var answers = question.answers
@@ -22,14 +22,14 @@ class HintManager {
         return withoutCorrentAnswers
     }
     
-    func hallHelp(question: Question) -> Int {
+    func hallHelp(question: QuestionViewModel) -> Int {
         Game.shared.session?.usedHints.append(.quiz)
         let randIndex = Int.random(in: 0..<question.answers.count)
         
         return randIndex
     }
     
-    func callFriend(question: Question) -> Int {
+    func callFriend(question: QuestionViewModel) -> Int {
         Game.shared.session?.usedHints.append(.friendCall)
         var friendGuessIndex = 0
         let isFriendSmart = Bool.random()

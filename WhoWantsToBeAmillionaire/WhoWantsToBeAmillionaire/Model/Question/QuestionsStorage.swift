@@ -10,16 +10,12 @@ import Foundation
 class QuestionsStorage {
     static var shared = QuestionsStorage()
         
-    private let questionAdapter = QuestionAdapter()
-    private lazy var questions: [Question] = [] {
-        didSet {
-            questionAdapter.saveQuestions(questions: questions)
-        }
-    }
+    private let questionAdapter: QuestionAdapterProtocol = QuestionAdapter()
+    private lazy var questions: [QuestionModel] = []
     
     private init() { }
     
-    private func tryToLoad(completion: @escaping ([Question]) -> Void,
+    private func tryToLoad(completion: @escaping ([QuestionModel]) -> Void,
                            failure: @escaping () -> Void) {
         questionAdapter.loadQuestions { [weak self] (loadedQuestions) in
             guard let self = self else { return }
@@ -30,15 +26,18 @@ class QuestionsStorage {
         }
     }
     
-    func add(question: Question) {
+    func add(question: QuestionModel) {
         questions.append(question)
+        questionAdapter.saveQuestion(question: question)
     }
     
     func remove(at: Int) {
+        let question = questions[at]
+        questionAdapter.removeQuestion(question: question)
         questions.remove(at: at)
     }
     
-    func get(completion: @escaping ([Question]) -> Void,
+    func get(completion: @escaping ([QuestionModel]) -> Void,
              failure: @escaping () -> Void) {
         if isEmpty() {
             tryToLoad { (loadedQuestions) in
@@ -60,6 +59,6 @@ class QuestionsStorage {
     }
     
     func getLastIndex() -> Int? {
-        return questions.last?.id
+        return Int(questions.last?.id ?? 0)
     }
 }

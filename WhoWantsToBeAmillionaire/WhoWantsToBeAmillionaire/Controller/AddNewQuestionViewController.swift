@@ -151,7 +151,7 @@ class AddNewQuestionViewController: UIViewController {
         return true
     }
     
-    private func buildQuestion() -> Question {
+    private func buildQuestion() -> QuestionViewModel {
         let builder = QuestionBuilder()
         builder.set(question: questionTextField.text ?? "")
         builder.set(answerA: answerATextField.text ?? "")
@@ -166,7 +166,7 @@ class AddNewQuestionViewController: UIViewController {
     @objc func addButtonTapped(sender: UIButton!) {
         if checkFields() {
            let question = buildQuestion()
-            
+
             QuestionsStorage.shared.add(question: question)
             delegate?.addToTable(question: question)
             self.dismiss(animated: true, completion: nil)

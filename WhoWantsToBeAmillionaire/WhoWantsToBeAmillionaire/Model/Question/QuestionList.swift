@@ -7,8 +7,15 @@
 
 import Foundation
 
+struct QuestionNetworkResponseModel: QuestionModel {
+    let id: Int
+    let text: String
+    let correctAnswer: String
+    let answers: [String]
+}
+
 class QuestionList: Decodable {
-    var questions: [Question] = []
+    var questions: [QuestionNetworkResponseModel] = []
     
     enum QuestionCodingKeys: String, CodingKey {
         case id
@@ -29,8 +36,8 @@ class QuestionList: Decodable {
             let answers = try questionContainer.decode(Array<String>.self, forKey: .answers)
             let text = try questionContainer.decode(String.self, forKey: .text)
             
-            let question = Question(id: id, text: text, correctAnswer: correctAnswer, answers: answers)
-            self.questions.append(question)
+            let question = QuestionNetworkResponseModel(id: id, text: text, correctAnswer: correctAnswer, answers: answers)
+            questions.append(question)
         }
     }
 }

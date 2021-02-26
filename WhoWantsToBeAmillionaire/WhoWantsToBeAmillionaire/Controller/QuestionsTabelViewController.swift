@@ -8,15 +8,16 @@
 import UIKit
 
 protocol QuestionsTableDelegate: AnyObject {
-    func addToTable(question: Question)
+    func addToTable(question: QuestionViewModel)
 }
 
 class QuestionsTableViewController: UIViewController {
     var addButton = UIButton()
     var tableView = UITableView()
     
-    var questions: [Question] = []
+    var questions: [QuestionViewModel] = []
     
+    private let viewModelFactory = QuestionViewModelFactory()
     private var testCell = QuestionTableViewCell()
     private let bottomPadding = UIApplication.shared.windows[0].safeAreaInsets.bottom
     
@@ -32,7 +33,7 @@ class QuestionsTableViewController: UIViewController {
     private func loadQuestionsData() {
         QuestionsStorage.shared.get { [weak self] (questions) in
             guard let self = self else { return }
-            self.questions = questions
+            self.questions = self.viewModelFactory.constructViewModel(from: questions)
             self.tableView.reloadData()
         } failure: { }
 
@@ -71,7 +72,7 @@ extension QuestionsTableViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: QuestionTableViewCell.reuseCellIdentifier, for: indexPath) as! QuestionTableViewCell
         
-        let question = questions[indexPath.row]
+        let question: QuestionViewModel = questions[indexPath.row]
         
         cell.configure(with: question)
         
@@ -80,7 +81,7 @@ extension QuestionsTableViewController: UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         testCell = QuestionTableViewCell()
-        let question = questions[indexPath.row]
+        let question: QuestionViewModel = questions[indexPath.row]
         testCell.configure(with: question)
         
         let height = testCell.height + 15
@@ -147,7 +148,7 @@ extension QuestionsTableViewController {
 // MARK: - (Delegate): Добавление нового вопроса
 
 extension QuestionsTableViewController: QuestionsTableDelegate {
-    func addToTable(question: Question) {
+    func addToTable(question: QuestionViewModel) {
         questions.append(question)
         tableView.reloadData()
     }

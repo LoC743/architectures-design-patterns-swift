@@ -125,7 +125,7 @@ class MenuViewController: UIViewController {
         }
     }
     
-    private func moveToGame(questions: [Question]) {
+    private func moveToGame(questions: [QuestionViewModel]) {
         let gameSession = GameSession(questionsCount: questions.count)
         Game.shared.session = gameSession
         

@@ -14,12 +14,17 @@
 		8A1E202F25DFC95D002B8439 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A1E202E25DFC95D002B8439 /* Assets.xcassets */; };
 		8A1E203225DFC95D002B8439 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A1E203025DFC95D002B8439 /* LaunchScreen.storyboard */; };
 		8A1E204025DFCB31002B8439 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E203F25DFCB31002B8439 /* MenuViewController.swift */; };
-		8A1E204425DFCC33002B8439 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E204325DFCC33002B8439 /* Question.swift */; };
+		8A1E204425DFCC33002B8439 /* QuestionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E204325DFCC33002B8439 /* QuestionViewModel.swift */; };
 		8A1E204725DFDA0F002B8439 /* GameViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E204625DFDA0F002B8439 /* GameViewContoller.swift */; };
 		8A1E204A25DFEA54002B8439 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E204925DFEA54002B8439 /* Game.swift */; };
 		8A1E204D25E006A5002B8439 /* ResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E204C25E006A5002B8439 /* ResultsTableViewController.swift */; };
 		8A1E205225E00B22002B8439 /* ResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E205025E00B22002B8439 /* ResultTableViewCell.swift */; };
 		8A1E205325E00B22002B8439 /* ResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A1E205125E00B22002B8439 /* ResultTableViewCell.xib */; };
+		8A32173E25E910F000A08485 /* QuestionViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A32173D25E910F000A08485 /* QuestionViewModelFactory.swift */; };
+		8A32174725E91C8D00A08485 /* Question+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A32174525E91C8C00A08485 /* Question+CoreDataProperties.swift */; };
+		8A32174825E91C8D00A08485 /* Question+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A32174625E91C8D00A08485 /* Question+CoreDataClass.swift */; };
+		8A32175625E91E0A00A08485 /* QuestionCoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8A32172B25E9051100A08485 /* QuestionCoreDataModel.xcdatamodeld */; };
+		8A32175D25E9228B00A08485 /* NSAttributedStringTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A32175C25E9228B00A08485 /* NSAttributedStringTransformer.swift */; };
 		8A559AE625E291EE00A39A16 /* GameSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A559AE525E291EE00A39A16 /* GameSession.swift */; };
 		8A6DAAB425E7C3C9003D3F9E /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6DAAB325E7C3C9003D3F9E /* NetworkManager.swift */; };
 		8A6DAAB925E7C408003D3F9E /* CustomAlomafireSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6DAAB825E7C408003D3F9E /* CustomAlomafireSession.swift */; };
@@ -52,12 +57,17 @@
 		8A1E203125DFC95D002B8439 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8A1E203325DFC95D002B8439 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A1E203F25DFCB31002B8439 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
-		8A1E204325DFCC33002B8439 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		8A1E204325DFCC33002B8439 /* QuestionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionViewModel.swift; sourceTree = "<group>"; };
 		8A1E204625DFDA0F002B8439 /* GameViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewContoller.swift; sourceTree = "<group>"; };
 		8A1E204925DFEA54002B8439 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		8A1E204C25E006A5002B8439 /* ResultsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsTableViewController.swift; sourceTree = "<group>"; };
 		8A1E205025E00B22002B8439 /* ResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultTableViewCell.swift; sourceTree = "<group>"; };
 		8A1E205125E00B22002B8439 /* ResultTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultTableViewCell.xib; sourceTree = "<group>"; };
+		8A32172C25E9051100A08485 /* QuestionCoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = QuestionCoreDataModel.xcdatamodel; sourceTree = "<group>"; };
+		8A32173D25E910F000A08485 /* QuestionViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionViewModelFactory.swift; sourceTree = "<group>"; };
+		8A32174525E91C8C00A08485 /* Question+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Question+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		8A32174625E91C8D00A08485 /* Question+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Question+CoreDataClass.swift"; sourceTree = "<group>"; };
+		8A32175C25E9228B00A08485 /* NSAttributedStringTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedStringTransformer.swift; sourceTree = "<group>"; };
 		8A559AE525E291EE00A39A16 /* GameSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSession.swift; sourceTree = "<group>"; };
 		8A6DAAB325E7C3C9003D3F9E /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		8A6DAAB825E7C408003D3F9E /* CustomAlomafireSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlomafireSession.swift; sourceTree = "<group>"; };
@@ -190,6 +200,35 @@
 			path = Results;
 			sourceTree = "<group>";
 		};
+		8A32170425E9027400A08485 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				8A32174625E91C8D00A08485 /* Question+CoreDataClass.swift */,
+				8A32172B25E9051100A08485 /* QuestionCoreDataModel.xcdatamodeld */,
+				8A32174525E91C8C00A08485 /* Question+CoreDataProperties.swift */,
+				8A32175C25E9228B00A08485 /* NSAttributedStringTransformer.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		8A32170525E9027F00A08485 /* Caretaker */ = {
+			isa = PBXGroup;
+			children = (
+				8AEE006125E28EB500D1064D /* QuestionModeCaretaker.swift */,
+				8A83572125E3BFC1008CCAE0 /* QuestionCaretaker.swift */,
+			);
+			path = Caretaker;
+			sourceTree = "<group>";
+		};
+		8A32173C25E910DE00A08485 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				8A1E204325DFCC33002B8439 /* QuestionViewModel.swift */,
+				8A32173D25E910F000A08485 /* QuestionViewModelFactory.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		8A6DAAB625E7C3CE003D3F9E /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -219,13 +258,13 @@
 		8AEE005D25E28E4D00D1064D /* Question */ = {
 			isa = PBXGroup;
 			children = (
-				8A1E204325DFCC33002B8439 /* Question.swift */,
-				8AEE005A25E285D800D1064D /* QuestionsOrder.swift */,
-				8AEE006125E28EB500D1064D /* QuestionModeCaretaker.swift */,
-				8A83572125E3BFC1008CCAE0 /* QuestionCaretaker.swift */,
+				8A32173C25E910DE00A08485 /* ViewModel */,
+				8A32170525E9027F00A08485 /* Caretaker */,
+				8A32170425E9027400A08485 /* CoreData */,
 				8A83572425E3C020008CCAE0 /* QuestionsStorage.swift */,
 				8A7740B425E5053B00BC550E /* QuestionBuilder.swift */,
 				8A6DAABC25E7C58A003D3F9E /* QuestionList.swift */,
+				8AEE005A25E285D800D1064D /* QuestionsOrder.swift */,
 				8A6DAABF25E7C87F003D3F9E /* QuestionAdapter.swift */,
 			);
 			path = Question;
@@ -379,16 +418,20 @@
 				8A7740B525E5053B00BC550E /* QuestionBuilder.swift in Sources */,
 				8AEE005B25E285D800D1064D /* QuestionsOrder.swift in Sources */,
 				8A83572525E3C020008CCAE0 /* QuestionsStorage.swift in Sources */,
+				8A32175625E91E0A00A08485 /* QuestionCoreDataModel.xcdatamodeld in Sources */,
 				8A6DAAC025E7C87F003D3F9E /* QuestionAdapter.swift in Sources */,
 				8ABF5FA725E01D4B00DE7AFB /* Colors.swift in Sources */,
 				8A83573125E3F06A008CCAE0 /* AddNewQuestionViewController.swift in Sources */,
-				8A1E204425DFCC33002B8439 /* Question.swift in Sources */,
+				8A1E204425DFCC33002B8439 /* QuestionViewModel.swift in Sources */,
 				8A83573525E3F599008CCAE0 /* QuestionTextField.swift in Sources */,
+				8A32174725E91C8D00A08485 /* Question+CoreDataProperties.swift in Sources */,
+				8A32174825E91C8D00A08485 /* Question+CoreDataClass.swift in Sources */,
 				8AEE006225E28EB500D1064D /* QuestionModeCaretaker.swift in Sources */,
 				8ABF5FAA25E024EC00DE7AFB /* ResultsCaretaker.swift in Sources */,
 				8A6DAAB925E7C408003D3F9E /* CustomAlomafireSession.swift in Sources */,
 				8A1E205225E00B22002B8439 /* ResultTableViewCell.swift in Sources */,
 				8A12D83A25E14A710063E882 /* DateFormatter.swift in Sources */,
+				8A32175D25E9228B00A08485 /* NSAttributedStringTransformer.swift in Sources */,
 				8A1E204A25DFEA54002B8439 /* Game.swift in Sources */,
 				8A6DAAB425E7C3C9003D3F9E /* NetworkManager.swift in Sources */,
 				8A559AE625E291EE00A39A16 /* GameSession.swift in Sources */,
@@ -398,6 +441,7 @@
 				8A1E204725DFDA0F002B8439 /* GameViewContoller.swift in Sources */,
 				8AEE005825E27BB200D1064D /* SettingsViewController.swift in Sources */,
 				8A1E202625DFC95C002B8439 /* AppDelegate.swift in Sources */,
+				8A32173E25E910F000A08485 /* QuestionViewModelFactory.swift in Sources */,
 				8A1E204025DFCB31002B8439 /* MenuViewController.swift in Sources */,
 				8A83571E25E3BE36008CCAE0 /* QuestionsTabelViewController.swift in Sources */,
 			);
@@ -595,6 +639,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		8A32172B25E9051100A08485 /* QuestionCoreDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				8A32172C25E9051100A08485 /* QuestionCoreDataModel.xcdatamodel */,
+			);
+			currentVersion = 8A32172C25E9051100A08485 /* QuestionCoreDataModel.xcdatamodel */;
+			path = QuestionCoreDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 8A1E201A25DFC95C002B8439 /* Project object */;
 }
