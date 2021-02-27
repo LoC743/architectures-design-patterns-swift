@@ -46,7 +46,7 @@ class QuestionBuilder {
         self.correctAnswerIndex = correctAnswerIndex
     }
     
-    func build() -> Question {
+    func build() -> QuestionViewModel {
         let id = QuestionsStorage.shared.getLastIndex() ?? 1
         let questionText: String = question ?? ""
         let answers: [String] = [answerA ?? "", answerB ?? "", answerC ?? "", answerD ?? ""]
@@ -59,6 +59,6 @@ class QuestionBuilder {
             correct = answers[correctAnswerIndex]
         }
         
-        return Question(id: id, text: questionText, correctAnswer: correct, answers: answers)
+        return QuestionViewModel(id: id, text: questionText, correctAnswer: correct, answers: answers)
     }
 }

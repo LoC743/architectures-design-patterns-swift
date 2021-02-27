@@ -115,7 +115,7 @@ class QuestionTableViewCell: UITableViewCell {
     
     // MARK: - Конфигурация ячейки
     
-    func configure(with question: Question) {
+    func configure(with question: QuestionViewModel) {
         setupQuestionLabel(with: question.text)
         setupAnsewerLabels(with: question.answers, correctAnswer: question.correctAnswer)
     }
