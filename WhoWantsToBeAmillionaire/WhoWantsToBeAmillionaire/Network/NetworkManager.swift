@@ -5,7 +5,7 @@
 //  Created by Alexey on 25.02.2021.
 //
 
-import Alamofire
+import Foundation
 
 class NetworkManager {
     static let shared = NetworkManager()
@@ -16,21 +16,25 @@ class NetworkManager {
         case questions = "https://raw.githubusercontent.com/LoC743/architectures-design-patterns-swift/lesson-3/basic-patterns-3/data/questions.json"
     }
     
-    @discardableResult
-    func loadQuestionList(completion: @escaping (QuestionList?) -> Void, failure: @escaping () -> Void) -> Request? {
+    func loadQuestionList(completion: @escaping (QuestionList?) -> Void, failure: @escaping () -> Void) {
+        guard let url = URL(string: Paths.questions.rawValue) else { return }
 
-        let url = Paths.questions.rawValue
-
-        return Session.custom.request(url).responseData { response in
-            guard let data = response.value,
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard let data = data,
                   let questionList = try? JSONDecoder().decode(QuestionList.self, from: data)
             else {
-                print("Failed to pase questions JSON!")
-                failure()
+                print("[Error]: Failed to parse Question JSON!")
+                DispatchQueue.main.async {
+                    failure()
+                }
                 return
             }
-
-            completion(questionList)
+            
+            DispatchQueue.main.async {
+                completion(questionList)
+            }
         }
+
+        task.resume()
     }
 }
