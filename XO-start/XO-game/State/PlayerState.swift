@@ -9,6 +9,8 @@
 import Foundation
 
 class PlayerState: GameState {
+    
+    var gameMode: GameMode
 
     var isMoveCompleted: Bool = false
     
@@ -19,12 +21,13 @@ class PlayerState: GameState {
     
     public let markViewPrototype: MarkView
     
-    init(player: Player, gameViewController: GameViewController, gameBoard: Gameboard, gameBoardView: GameboardView, markViewPrototype: MarkView) {
+    init(player: Player, gameViewController: GameViewController, gameBoard: Gameboard, gameBoardView: GameboardView, markViewPrototype: MarkView, gameMode: GameMode) {
         self.player = player
         self.gameViewController = gameViewController
         self.gameBoard = gameBoard
         self.gameBoardView = gameBoardView
         self.markViewPrototype = markViewPrototype
+        self.gameMode = gameMode
     }
     
     func begin() {
@@ -37,6 +40,8 @@ class PlayerState: GameState {
             gameViewController?.secondPlayerTurnLabel.isHidden = false
         }
         
+        gameViewController?.firstPlayerTurnLabel.text = PlayerInfo.getFirstPlayerTitle(gameMode: gameMode)
+        gameViewController?.secondPlayerTurnLabel.text = PlayerInfo.getSecondPlayerTitle(gameMode: gameMode)
         gameViewController?.winnerLabel.isHidden = true
     }
     
@@ -49,15 +54,6 @@ class PlayerState: GameState {
         Log(action: .playerSetMark(player: player, position: position))
         
         gameBoard?.setPlayer(player, at: position)
-        
-//        let markView: MarkView
-//
-//        switch player {
-//        case .first:
-//            markView = XView()
-//        case .second:
-//            markView = OView()
-//        }
         
         gameBoardView.placeMarkView(markViewPrototype.copy(), at: position)
         

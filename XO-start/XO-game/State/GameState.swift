@@ -8,9 +8,16 @@
 
 import Foundation
 
+enum GameMode: Int {
+    case vsPerson
+    case vsAI
+}
+
 protocol GameState {
 
     var isMoveCompleted: Bool { get }
+    
+    var gameMode: GameMode { get }
     
     func begin()
     func addMark(at position: GameboardPosition)

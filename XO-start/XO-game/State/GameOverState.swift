@@ -9,15 +9,18 @@
 import Foundation
 
 class GameOverState: GameState {
+    
+    var gameMode: GameMode
 
     var isMoveCompleted = false
 
     public let winner: Player?
     private weak var gameViewController: GameViewController?
 
-    init(winner: Player?, gameViewController: GameViewController) {
+    init(winner: Player?, gameViewController: GameViewController, gameMode: GameMode) {
         self.winner = winner
         self.gameViewController = gameViewController
+        self.gameMode = gameMode
     }
 
 
@@ -27,7 +30,7 @@ class GameOverState: GameState {
         if let winner = winner {
             gameViewController?.winnerLabel.text = getWinnerName(from: winner)
         } else {
-            gameViewController?.winnerLabel.text = "No winner"
+            gameViewController?.winnerLabel.text = "Draw"
         }
         
         gameViewController?.firstPlayerTurnLabel.isHidden = true
@@ -39,11 +42,6 @@ class GameOverState: GameState {
     func addMark(at position: GameboardPosition) {}
     
     private func getWinnerName(from winner: Player) -> String {
-        switch winner {
-        case .first:
-            return "1st player won"
-        case .second:
-            return "2nd player won"
-        }
+        return PlayerInfo.getWinnerTitle(gameMode: gameMode, winner: winner)
     }
 }

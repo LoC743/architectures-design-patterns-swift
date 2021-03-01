@@ -142,4 +142,24 @@ public class GameboardView: UIView {
                                 height: rowHeight).insetBy(dx: 0.5 * Constants.lineWidth,
                                                            dy: 0.5 * Constants.lineWidth)
     }
+    
+    func generatePosition() -> GameboardPosition {
+        var position = GameboardPosition(column: 0, row: 0)
+        repeat {
+            let xStart: Int = Int(frame.origin.x)
+            let xEnd: Int = Int(frame.height)
+            
+            let yStart: Int = Int(frame.origin.y)
+            let yEnd: Int = Int(frame.width)
+            
+            let randColumn = Int.random(in: xStart..<xEnd)
+            let randRow = Int.random(in: yStart..<yEnd)
+            
+            let randPoint: CGPoint = CGPoint(x: randColumn, y: randRow)
+            position = GameboardPosition(column: determineColumn(for: randPoint),
+                                         row: determineRow(for: randPoint))
+        } while !canPlaceMarkView(at: position)
+        
+        return position
+    }
 }
