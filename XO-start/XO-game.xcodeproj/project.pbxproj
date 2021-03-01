@@ -96,11 +96,7 @@
 		29B9F0BA25EA3B4A006C4FA4 /* Command */ = {
 			isa = PBXGroup;
 			children = (
-				29B9F0BB25EA3B5A006C4FA4 /* LogAction.swift */,
-				29B9F0BE25EA3BA2006C4FA4 /* LogCommand.swift */,
-				29B9F0C125EA3C61006C4FA4 /* LogReceiver.swift */,
-				29B9F0C425EA3C96006C4FA4 /* LogInvoker.swift */,
-				29B9F0C725EA3D7F006C4FA4 /* LogFunc.swift */,
+				8A971B8E25ED2C9D002D0156 /* Log */,
 			);
 			path = Command;
 			sourceTree = "<group>";
@@ -111,6 +107,18 @@
 				8A971B8825ED1E8D002D0156 /* PlayerInfo.swift */,
 			);
 			path = Flyweight;
+			sourceTree = "<group>";
+		};
+		8A971B8E25ED2C9D002D0156 /* Log */ = {
+			isa = PBXGroup;
+			children = (
+				29B9F0BB25EA3B5A006C4FA4 /* LogAction.swift */,
+				29B9F0BE25EA3BA2006C4FA4 /* LogCommand.swift */,
+				29B9F0C125EA3C61006C4FA4 /* LogReceiver.swift */,
+				29B9F0C425EA3C96006C4FA4 /* LogInvoker.swift */,
+				29B9F0C725EA3D7F006C4FA4 /* LogFunc.swift */,
+			);
+			path = Log;
 			sourceTree = "<group>";
 		};
 		8A976A4625ECFEC30052EA86 /* Controllers */ = {

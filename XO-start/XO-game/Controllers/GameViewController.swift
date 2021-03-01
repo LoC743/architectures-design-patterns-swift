@@ -101,8 +101,6 @@ class GameViewController: UIViewController {
                 let position = gameboardView.generatePosition()
                 gameboardView.onSelectPosition?(position)
             }
-            
-            
         }
     }
     
