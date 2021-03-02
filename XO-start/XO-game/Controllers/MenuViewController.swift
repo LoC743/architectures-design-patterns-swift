@@ -31,6 +31,19 @@ class MenuViewController: UIViewController {
         performSegue(withIdentifier: startGameSegueIdentifier, sender: self)
     }
     
+    // MARK: - (Action): Изменение значения в gameTypeSegmentedControl
+    @IBAction func gameTypeValueChanged(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            gameModeSegmentedControl.isEnabled = true
+        case 1:
+            gameModeSegmentedControl.isEnabled = false
+            gameModeSegmentedControl.selectedSegmentIndex = 0
+        default:
+            break
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case startGameSegueIdentifier:

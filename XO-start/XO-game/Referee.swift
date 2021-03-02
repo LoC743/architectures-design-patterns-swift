@@ -40,6 +40,17 @@ public final class Referee {
         return nil
     }
     
+    public func determineAmountOfWinners() -> Int {
+        var counter = 0
+        for player in Player.allCases {
+            if doesPlayerHaveWinningCombination(player) {
+                counter += 1
+            }
+        }
+        
+        return counter
+    }
+    
     // MARK: - Private
     
     private func generateWinsByColumn(result: inout [[GameboardPosition]]) {

@@ -128,7 +128,6 @@ class GameViewController: UIViewController {
     }
     
     private func setNextSeriesState(position: GameboardPosition) {
-        
         if counter > 10 {
             return
         }
@@ -180,14 +179,21 @@ class GameViewController: UIViewController {
                 }
             }
 
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
                 self.currentState.addMark(at: position)
             }
             
             if index >= 9 {
-                DispatchQueue.main.async {
-                    if let winner = self.referee.determineWinner() {
-                        self.currentState = GameOverState(winner: winner, gameViewController: self, gameMode: gameMode)
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    
+                    if self.referee.determineAmountOfWinners() == 2 {
+                        self.currentState = GameOverState(winner: .none, gameViewController: self, gameMode: gameMode)
+                    } else {
+                        if let winner = self.referee.determineWinner() {
+                            self.currentState = GameOverState(winner: winner, gameViewController: self, gameMode: gameMode)
+                        }
                     }
                 }
             }

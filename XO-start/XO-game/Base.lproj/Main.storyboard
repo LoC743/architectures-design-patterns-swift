@@ -178,6 +178,9 @@ Toe</string>
                                     <segment title="Series"/>
                                 </segments>
                                 <color key="selectedSegmentTintColor" red="0.89019607840000003" green="0.84705882349999995" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="gameTypeValueChanged:" destination="M7d-a0-UvS" eventType="valueChanged" id="x2H-6Y-Rcs"/>
+                                </connections>
                             </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Jo9-kP-Gnz"/>
