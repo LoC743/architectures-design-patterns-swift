@@ -80,6 +80,7 @@ class GameViewController: UIViewController {
         setFirstState()
         TurnInvoker.shared.clearCommands()
         isSecondTurnSeries = false
+        gameboardView.isUserInteractionEnabled = true
         GameType.shared.activePlayer = .first
     }
     
@@ -136,6 +137,7 @@ class GameViewController: UIViewController {
     // MARK: - Series: Последовательная игра
     
     private func setNextSeriesState(position: GameboardPosition) {
+        if counter == 10 { gameboardView.isUserInteractionEnabled = false }
         var command: TurnCommand
         if counter < 5 {
             // Ходит первый игрок
