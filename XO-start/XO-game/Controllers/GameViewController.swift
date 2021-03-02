@@ -22,6 +22,7 @@ class GameViewController: UIViewController {
     private var counter = 0
     
     var gameMode: GameMode?
+    var isSecondTurnSeries = false
     
     @IBOutlet var gameboardView: GameboardView!
     @IBOutlet var firstPlayerTurnLabel: UILabel!
@@ -37,6 +38,10 @@ class GameViewController: UIViewController {
         
         setFirstState()
         
+        // Подписка на уведомления
+        let notificationName = Notification.Name(Notifications.releaseTurnCommand.rawValue)
+        NotificationCenter.default.addObserver(self, selector: #selector(placeMark(_:)), name: notificationName, object: nil)
+        
         gameboardView.onSelectPosition = { [weak self] position in
             guard let self = self else { return }
 
@@ -45,7 +50,12 @@ class GameViewController: UIViewController {
                 
                 self.counter += 1
                 
-                self.setNextState()
+                switch GameType.shared.gameType {
+                case .classic:
+                    self.setNextClassicState()
+                case .series:
+                    self.setNextSeriesState(position: position)
+                }
             }
         }
     }
@@ -64,6 +74,9 @@ class GameViewController: UIViewController {
         gameboardView.clear()
         gameBoard.clear()
         setFirstState()
+        TurnInvoker.shared.clearCommands()
+        isSecondTurnSeries = false
+        GameType.shared.activePlayer = .first
     }
     
     private func setFirstState() {
@@ -76,7 +89,7 @@ class GameViewController: UIViewController {
                                    markViewPrototype: player.markViewPrototype, gameMode: gameMode)
     }
     
-    private func setNextState() {
+    private func setNextClassicState() {
         guard let gameMode = gameMode else { return }
         
         if let winner = referee.determineWinner() {
@@ -104,9 +117,84 @@ class GameViewController: UIViewController {
         }
     }
     
+    private func switchPlayerState() {
+        if let playerInputState = currentState as? PlayerState {
+            let player = playerInputState.player.next
+            
+            currentState = PlayerState(player: player, gameViewController: self,
+                                       gameBoard: gameBoard, gameBoardView: gameboardView,
+                                       markViewPrototype: player.markViewPrototype, gameMode: .vsPerson)
+        }
+    }
+    
+    private func setNextSeriesState(position: GameboardPosition) {
+        
+        if counter > 10 {
+            return
+        }
+        
+        var command: TurnCommand
+        if counter < 5 {
+            command = TurnCommand(action: .firstPlayerTurn(position: position))
+        } else {
+            if !isSecondTurnSeries {
+                isSecondTurnSeries = true
+                GameType.shared.activePlayer = .second
+                gameboardView.clear()
+                gameBoard.clear()
+                switchPlayerState()
+            }
+            command = TurnCommand(action: .secondPlayerTurn(position: position))
+        }
+        
+        if counter == 10 {
+            gameboardView.clear()
+            switchPlayerState()
+            isSecondTurnSeries = false
+            GameType.shared.activePlayer = .first
+        }
+        TurnInvoker.shared.addTurnCommand(command: command)
+    }
+    
     // MARK: - (Action): Back to Menu
     
     @IBAction func backToMenuTapped(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    // MARK: - (Selector) наблюдает за TurnReciever
+    @objc func placeMark(_ notification: NSNotification) {
+        guard let gameMode = gameMode else { return }
+        
+        if let dict = notification.userInfo as NSDictionary?,
+           let position = dict["position"] as? GameboardPosition,
+           let index = dict["index"] as? Int {
+    
+            if index > 4 {
+                if !isSecondTurnSeries {
+                    isSecondTurnSeries = true
+                    DispatchQueue.main.async {
+                        GameType.shared.activePlayer = .second
+                        self.switchPlayerState()
+                    }
+                }
+            }
+
+            DispatchQueue.main.async {
+                self.currentState.addMark(at: position)
+            }
+            
+            if index >= 9 {
+                DispatchQueue.main.async {
+                    if let winner = self.referee.determineWinner() {
+                        self.currentState = GameOverState(winner: winner, gameViewController: self, gameMode: gameMode)
+                    }
+                }
+            }
+        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }

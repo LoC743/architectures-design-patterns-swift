@@ -46,9 +46,17 @@ class PlayerState: GameState {
     }
     
     func addMark(at position: GameboardPosition) {
-        
-        guard let gameBoardView = gameBoardView, gameBoardView.canPlaceMarkView(at: position) else {
+        guard let gameBoardView = gameBoardView else {
             return
+        }
+        
+        if !gameBoardView.canPlaceMarkView(at: position) {
+            guard GameType.shared.gameType == .series,
+                  GameType.shared.activePlayer == .second else {
+                isMoveCompleted = false
+                return
+            }
+            gameBoardView.removeMarkView(at: position)
         }
         
         Log(action: .playerSetMark(player: player, position: position))

@@ -10,6 +10,7 @@ import UIKit
 
 class MenuViewController: UIViewController {
     @IBOutlet weak var gameModeSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var gameTypeSegmentedControl: UISegmentedControl!
     @IBOutlet weak var playButton: UIButton!
     
     private let startGameSegueIdentifier = "showGame"
@@ -34,7 +35,9 @@ class MenuViewController: UIViewController {
         switch segue.identifier {
         case startGameSegueIdentifier:
             guard let gameViewController = segue.destination as? GameViewController,
-                  let gameMode = GameMode(rawValue: gameModeSegmentedControl.selectedSegmentIndex) else { return }
+                  let gameMode = GameMode(rawValue: gameModeSegmentedControl.selectedSegmentIndex),
+                  let gameType = GameTypes(rawValue: gameTypeSegmentedControl.selectedSegmentIndex) else { return }
+            GameType.shared.gameType = gameType
             gameViewController.gameMode = gameMode
         default: break
         }

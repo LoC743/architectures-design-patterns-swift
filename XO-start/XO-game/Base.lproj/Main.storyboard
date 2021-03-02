@@ -138,7 +138,7 @@
                                 <color key="selectedSegmentTintColor" red="0.89019607840000003" green="0.84705882349999995" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
                             </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tX1-Sm-o0q">
-                                <rect key="frame" x="155" y="388.5" width="65" height="40"/>
+                                <rect key="frame" x="155" y="454.5" width="65" height="40"/>
                                 <color key="backgroundColor" red="0.98431372549019602" green="0.38823529411764707" blue="0.46274509803921571" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="65" id="Hed-Yq-8QV"/>
@@ -166,14 +166,29 @@ Toe</string>
                                 <fontDescription key="fontDescription" name="Rockwell-Bold" family="Rockwell" pointSize="45"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="H8y-QD-tUo">
+                                <rect key="frame" x="112.5" y="381.5" width="150" height="51"/>
+                                <color key="backgroundColor" red="0.98431372549999996" green="0.38823529410000002" blue="0.46274509800000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="67E-eI-i8a"/>
+                                    <constraint firstAttribute="height" constant="50" id="ggk-UC-iZu"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Classic"/>
+                                    <segment title="Series"/>
+                                </segments>
+                                <color key="selectedSegmentTintColor" red="0.89019607840000003" green="0.84705882349999995" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Jo9-kP-Gnz"/>
                         <color key="backgroundColor" red="0.8901960784313725" green="0.84705882352941175" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="m01-8X-BlB" firstAttribute="top" secondItem="Jo9-kP-Gnz" secondAttribute="top" constant="55" id="0Ex-ZL-X0O"/>
-                            <constraint firstItem="tX1-Sm-o0q" firstAttribute="top" secondItem="eln-Yb-Zbo" secondAttribute="bottom" constant="30" id="2zI-63-Wme"/>
+                            <constraint firstItem="tX1-Sm-o0q" firstAttribute="top" secondItem="H8y-QD-tUo" secondAttribute="bottom" constant="23" id="MRM-n6-ZYg"/>
+                            <constraint firstItem="H8y-QD-tUo" firstAttribute="top" secondItem="eln-Yb-Zbo" secondAttribute="bottom" constant="23" id="aFx-bD-lwY"/>
                             <constraint firstItem="m01-8X-BlB" firstAttribute="centerX" secondItem="Jo9-kP-Gnz" secondAttribute="centerX" id="aGy-Gi-UL8"/>
                             <constraint firstItem="eln-Yb-Zbo" firstAttribute="top" secondItem="m01-8X-BlB" secondAttribute="bottom" constant="55" id="bNl-rn-ft9"/>
+                            <constraint firstItem="H8y-QD-tUo" firstAttribute="centerX" secondItem="Jo9-kP-Gnz" secondAttribute="centerX" id="gaM-H3-jcH"/>
                             <constraint firstItem="eln-Yb-Zbo" firstAttribute="centerX" secondItem="Jo9-kP-Gnz" secondAttribute="centerX" id="uRv-Gj-vIi"/>
                             <constraint firstItem="tX1-Sm-o0q" firstAttribute="centerX" secondItem="Jo9-kP-Gnz" secondAttribute="centerX" id="ukc-e6-fOS"/>
                             <constraint firstItem="eln-Yb-Zbo" firstAttribute="centerY" secondItem="Jo9-kP-Gnz" secondAttribute="centerY" id="vN9-lZ-oy8"/>
@@ -181,6 +196,7 @@ Toe</string>
                     </view>
                     <connections>
                         <outlet property="gameModeSegmentedControl" destination="eln-Yb-Zbo" id="c4b-78-6Cn"/>
+                        <outlet property="gameTypeSegmentedControl" destination="H8y-QD-tUo" id="1Ka-FM-QCT"/>
                         <outlet property="playButton" destination="tX1-Sm-o0q" id="tvV-Jc-VbY"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="showGame" modalPresentationStyle="fullScreen" id="x0D-dq-ZCH"/>
                     </connections>
