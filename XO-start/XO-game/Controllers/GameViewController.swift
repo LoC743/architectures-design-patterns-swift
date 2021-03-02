@@ -44,7 +44,7 @@ class GameViewController: UIViewController {
         
         gameboardView.onSelectPosition = { [weak self] position in
             guard let self = self else { return }
-
+            
             self.currentState.addMark(at: position)
             if self.currentState.isMoveCompleted {
                 
@@ -60,12 +60,16 @@ class GameViewController: UIViewController {
         }
     }
     
+    // MARK: - Настройка UI кнопки
+    
     private func setupButtons() {
         ([restartButton, menuButton] as! [UIButton]).forEach { (button) in
             button.layer.masksToBounds = true
             button.layer.cornerRadius = button.frame.height/4
         }
     }
+    
+    // MARK: - (Action): Restart
     
     @IBAction func restartButtonTapped(_ sender: UIButton) {
         
@@ -88,6 +92,8 @@ class GameViewController: UIViewController {
                                    gameBoard: gameBoard, gameBoardView: gameboardView,
                                    markViewPrototype: player.markViewPrototype, gameMode: gameMode)
     }
+    
+    // MARK: - Classic: Обычная игра
     
     private func setNextClassicState() {
         guard let gameMode = gameMode else { return }
@@ -127,15 +133,15 @@ class GameViewController: UIViewController {
         }
     }
     
+    // MARK: - Series: Последовательная игра
+    
     private func setNextSeriesState(position: GameboardPosition) {
-        if counter > 10 {
-            return
-        }
-        
         var command: TurnCommand
         if counter < 5 {
+            // Ходит первый игрок
             command = TurnCommand(action: .firstPlayerTurn(position: position))
         } else {
+            // Ходит второй игрок
             if !isSecondTurnSeries {
                 isSecondTurnSeries = true
                 GameType.shared.activePlayer = .second
@@ -168,7 +174,8 @@ class GameViewController: UIViewController {
         if let dict = notification.userInfo as NSDictionary?,
            let position = dict["position"] as? GameboardPosition,
            let index = dict["index"] as? Int {
-    
+            
+            // Изменение игрока на второго
             if index > 4 {
                 if !isSecondTurnSeries {
                     isSecondTurnSeries = true
@@ -178,16 +185,17 @@ class GameViewController: UIViewController {
                     }
                 }
             }
-
+            
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 self.currentState.addMark(at: position)
             }
             
+            // Все ходы были выполнены
             if index >= 9 {
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
-                    
+                    // Сначала определяется количество победителей. 2 -> ничья. В остальных случаях есть победитель.
                     if self.referee.determineAmountOfWinners() == 2 {
                         self.currentState = GameOverState(winner: .none, gameViewController: self, gameMode: gameMode)
                     } else {
