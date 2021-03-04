@@ -9,7 +9,7 @@ import Foundation
 
 protocol TaskProtocol {
     func addSubtask(_ newTask: Task)
-    func removeSubtask()
+    func removeSubtask(by id: Int) -> Bool
     func openSubtasks() -> [Task]
 }
 
@@ -24,8 +24,23 @@ final class Task: TaskProtocol {
         subTasks.append(newTask)
     }
     
-    func removeSubtask() {
+    func removeSubtask(by id: Int) -> Bool {
+        var isSubTasksContain = false
+        var indexToRemove: Int = -1
+        for (index, subTask) in subTasks.enumerated() {
+            if subTask.id == id {
+                print(subTask)
+                indexToRemove = index
+                isSubTasksContain = true
+                break
+            }
+        }
         
+        if isSubTasksContain {
+            subTasks.remove(at: indexToRemove)
+        }
+        
+        return isSubTasksContain
     }
     
     func openSubtasks() -> [Task] {

@@ -32,12 +32,14 @@ class TaskStorage {
     }
     
     func removeTask(by id: Int) {
-//        for (index, task) in tasks.enumerated() {
-//            if task.id == id {
-//                tasks.remove(at: index)
-//                break
-//            }
-//        }
+        for subTask in task.openAllSubtasks() {
+            if subTask.removeSubtask(by: id) {
+                print("Removed")
+                break
+            }
+        }
+        taskCaretaker.saveMainTask(task)
+        task = taskCaretaker.loadMainTask()
     }
     
     func modifyTask(with newTask: Task) {
