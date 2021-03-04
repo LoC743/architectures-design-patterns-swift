@@ -13,6 +13,8 @@ class TaskTableViewCell: UITableViewCell {
     
     public static let reuseIdentifier = "TaskTableViewCell"
     
+    private var task: Task?
+    
     enum ButtonState {
         case off
         case on
@@ -52,14 +54,17 @@ class TaskTableViewCell: UITableViewCell {
         switch buttonState {
         case .off:
             buttonState = .on
+            task?.isCompleted = true
         case .on:
             buttonState = .off
+            task?.isCompleted = false
         }
     }
     
     public func configure(with task: Task) {
         setupCellView()
         
+        self.task = task
         taskTextLabel.text = task.text
         
         if task.isCompleted {
@@ -74,6 +79,9 @@ class TaskTableViewCell: UITableViewCell {
     }
     
     @IBAction func checkButtonTapped(_ sender: UIButton) {
+        guard let task = task else { return }
         switchCheckButton()
+        
+        TaskStorage.shared.modifyTask(with: task)
     }
 }

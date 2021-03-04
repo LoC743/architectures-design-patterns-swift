@@ -12,25 +12,25 @@ class TaskCaretaker {
     private let decoder = JSONDecoder()
     private let key = "tasks"
     
-    func saveTasks(_ tasks: [Task]) {
+    func saveMainTask(_ task: Task) {
         do {
-            let data: Memento = try encoder.encode(tasks)
+            let data: Memento = try encoder.encode(task)
             UserDefaults.standard.setValue(data, forKey: key)
         } catch {
             print(error.localizedDescription)
         }
     }
     
-    func loadTasks() -> [Task] {
+    func loadMainTask() -> Task {
         guard let data: Memento = UserDefaults.standard.data(forKey: key) else {
-            return []
+            return Task()
         }
         
         do {
-            return try decoder.decode([Task].self, from: data)
+            return try decoder.decode(Task.self, from: data)
         } catch {
             print(error.localizedDescription)
-            return []
+            return Task()
         }
     }
 }

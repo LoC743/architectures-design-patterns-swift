@@ -11,7 +11,8 @@ class MainViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var currentTask: Task?
-    var tasks: [Task] = [] {
+    
+    var tableTasks: [Task] = [] {
         didSet {
             tableView.reloadData()
         }
@@ -25,9 +26,15 @@ class MainViewController: UIViewController {
     }
     
     private func loadTasks() {
-        if currentTask == nil {
-            tasks = TaskStorage.shared.getTasks()
+        if currentTask == nil { currentTask = TaskStorage.shared.getMainTask() }
+        
+        if let currentTask = currentTask {
+            tableTasks = currentTask.openSubtasks()
         }
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
     }
     
     private func setupView() {
@@ -62,13 +69,13 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tasks.count
+        return tableTasks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.reuseIdentifier, for: indexPath) as! TaskTableViewCell
         
-        cell.configure(with: tasks[indexPath.row])
+        cell.configure(with: tableTasks[indexPath.row])
         
         return cell
     }
@@ -76,8 +83,8 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "MainViewController") as? MainViewController else { return }
 
-        vc.currentTask = tasks[indexPath.row]
-        vc.title = "\(tasks[indexPath.row].text)"
+        vc.currentTask = tableTasks[indexPath.row]
+        vc.title = "\(tableTasks[indexPath.row].text)"
         
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -88,15 +95,13 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            tasks.remove(at: indexPath.row)
-            if tasks.isEmpty {
+            TaskStorage.shared.removeTask(by: tableTasks[indexPath.row].id)
+            tableTasks.remove(at: indexPath.row)
+            if tableTasks.isEmpty {
                 tableView.reloadData()
             } else {
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
-            
-            tableView.beginUpdates()
-            tableView.endUpdates()
         }
     }
 }

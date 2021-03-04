@@ -14,24 +14,19 @@ extension MainViewController {
             textField.placeholder = "Задача..."
         }
         
+        alert.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: nil))
+        
         alert.addAction(UIAlertAction(title: "Добавить", style: .default, handler: { [weak alert, weak self] (_) in
             guard let self = self else { return }
             let textField = alert?.textFields![0]
             
             let taskText = textField?.text ?? ""
             let newTask = Task(text: taskText)
-            
-            self.tasks.append(newTask)
-//            if self.currentTask == nil {
-//                
-//            } else if let current = self.currentTask {
-//                for (index, task) in self.tasks.enumerated() {
-//                    if task.id == current.id {
-//                        self.tasks[index].addSubtask(newTask)
-//                        break
-//                    }
-//                }
-//            }
+        
+            if let currentTask = self.currentTask {
+                TaskStorage.shared.addTask(newTask, for: currentTask)
+                self.tableTasks.append(newTask)
+            }
         }))
         
         self.present(alert, animated: true, completion: nil)

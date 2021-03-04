@@ -12,50 +12,58 @@ class TaskStorage {
     private init() { }
     
     private let taskCaretaker = TaskCaretaker()
-    private var tasks: [Task] = [] {
-        didSet {
-            taskCaretaker.saveTasks(tasks)
-        }
-    }
+    private lazy var task: Task = {
+        return taskCaretaker.loadMainTask()
+    }()
     
-    func addTask(_ task: Task) {
-        tasks.append(task)
+    func addTask(_ newTask: Task, for mainTask: Task) {
+        if mainTask.id == task.id {
+            task.addSubtask(newTask)
+        } else {
+            for subTask in task.openAllSubtasks() {
+                if subTask.id == mainTask.id {
+                    subTask.addSubtask(newTask)
+                    break
+                }
+            }
+        }
+        
+        taskCaretaker.saveMainTask(task)
     }
     
     func removeTask(by id: Int) {
-        for (index, task) in tasks.enumerated() {
-            if task.id == id {
-                tasks.remove(at: index)
+//        for (index, task) in tasks.enumerated() {
+//            if task.id == id {
+//                tasks.remove(at: index)
+//                break
+//            }
+//        }
+    }
+    
+    func modifyTask(with newTask: Task) {
+        var tasksArray: [Task] = task.openAllSubtasks()
+        for (index, subTask) in tasksArray.enumerated() {
+            if subTask.id == newTask.id {
+                tasksArray[index] = newTask
                 break
             }
         }
+        taskCaretaker.saveMainTask(task)
     }
     
-    func modifyTask(newTask: Task) {
-        for (index, task) in tasks.enumerated() {
-            if task.id == newTask.id {
-                tasks[index] = newTask
-                break
+    func getMainTask() -> Task {
+       return task
+    }
+    
+    func getMaxId() -> Int {
+        var maxID = 0
+        
+        for subTask in task.openAllSubtasks() {
+            if subTask.id > maxID {
+                maxID = subTask.id
             }
         }
-    }
-    
-    func getTasks() -> [Task] {
-        return taskCaretaker.loadTasks()
-    }
-    
-    func getMaxId() -> Int? {
-        guard tasks.count > 0 else { return nil }
-        
-        var maxID = tasks[0].id
-        
-        for task in tasks {
-            maxID = task.id > maxID ? task.id : maxID
-            for subTask in task.openSubtasks() {
-                maxID = subTask.id > maxID ? subTask.id : maxID
-            }
-        }
-        
-        return maxID
+
+        return maxID + 1
     }
 }
