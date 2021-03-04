@@ -10,7 +10,8 @@ import UIKit
 class MainViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
-    var tasks: [Task] = tasksStorage {
+    var currentTask: Task?
+    var tasks: [Task] = [] {
         didSet {
             tableView.reloadData()
         }
@@ -20,6 +21,13 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         setupView()
+        loadTasks()
+    }
+    
+    private func loadTasks() {
+        if currentTask == nil {
+            tasks = TaskStorage.shared.getTasks()
+        }
     }
     
     private func setupView() {
@@ -39,10 +47,6 @@ class MainViewController: UIViewController {
     }
     
     @objc func addTapped() {
-//        guard let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "MainViewController") as? MainViewController else { return }
-//
-//        navigationController?.pushViewController(vc, animated: true)
-        
         self.showNewTaskAlert()
     }
 }
@@ -69,15 +73,17 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "MainViewController") as? MainViewController else { return }
+
+        vc.currentTask = tasks[indexPath.row]
+        vc.title = "\(tasks[indexPath.row].text)"
+        
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        testCell = QuestionTableViewCell()
-//        let question: QuestionViewModel = questions[indexPath.row]
-//        testCell.configure(with: question)
-//
-//        let height = testCell.height + 15
-//
-//        return height
-        return 55
+        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

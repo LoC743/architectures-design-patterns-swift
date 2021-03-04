@@ -15,12 +15,23 @@ extension MainViewController {
         }
         
         alert.addAction(UIAlertAction(title: "Добавить", style: .default, handler: { [weak alert, weak self] (_) in
+            guard let self = self else { return }
             let textField = alert?.textFields![0]
             
             let taskText = textField?.text ?? ""
-            let task = Task(id: 5, text: taskText, isCompleted: false)
+            let newTask = Task(text: taskText)
             
-            self?.tasks.append(task)
+            self.tasks.append(newTask)
+//            if self.currentTask == nil {
+//                
+//            } else if let current = self.currentTask {
+//                for (index, task) in self.tasks.enumerated() {
+//                    if task.id == current.id {
+//                        self.tasks[index].addSubtask(newTask)
+//                        break
+//                    }
+//                }
+//            }
         }))
         
         self.present(alert, animated: true, completion: nil)
