@@ -10,19 +10,21 @@ import Foundation
 class TaskCaretaker {
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
-    private let key = "tasks"
+    private let defaults = UserDefaults.standard
+    private let taskKey = "tasks"
+    private let maxIDKey = "maxID"
     
     func saveMainTask(_ task: Task) {
         do {
             let data: Memento = try encoder.encode(task)
-            UserDefaults.standard.setValue(data, forKey: key)
+            defaults.setValue(data, forKey: taskKey)
         } catch {
             print(error.localizedDescription)
         }
     }
-    
+
     func loadMainTask() -> Task {
-        guard let data: Memento = UserDefaults.standard.data(forKey: key) else {
+        guard let data: Memento = defaults.data(forKey: taskKey) else {
             return Task()
         }
         
@@ -32,6 +34,14 @@ class TaskCaretaker {
             print(error.localizedDescription)
             return Task()
         }
+    }
+    
+    func saveMaxID(_ id: Int) {
+        defaults.setValue(id, forKey: maxIDKey)
+    }
+    
+    func loadMaxID() -> Int {
+        return defaults.integer(forKey: maxIDKey)
     }
 }
 

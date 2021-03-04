@@ -25,22 +25,21 @@ final class Task: TaskProtocol {
     }
     
     func removeSubtask(by id: Int) -> Bool {
-        var isSubTasksContain = false
+        var isSubTasksContains = false
         var indexToRemove: Int = -1
         for (index, subTask) in subTasks.enumerated() {
             if subTask.id == id {
-                print(subTask)
                 indexToRemove = index
-                isSubTasksContain = true
+                isSubTasksContains = true
                 break
             }
         }
         
-        if isSubTasksContain {
+        if isSubTasksContains {
             subTasks.remove(at: indexToRemove)
         }
         
-        return isSubTasksContain
+        return isSubTasksContains
     }
     
     func openSubtasks() -> [Task] {
@@ -51,19 +50,19 @@ final class Task: TaskProtocol {
         var tasks: [Task] = []
         for subTask in subTasks {
             tasks.append(subTask)
-            tasks.append(contentsOf: subTask.openSubtasks())
+            tasks.append(contentsOf: subTask.openAllSubtasks())
         }
         return tasks
     }
     
     init(text: String) {
-        self.id = TaskStorage.shared.getMaxId()
+        self.id = TaskStorage.shared.getNextID()
         self.isCompleted = false
         self.text = text
     }
     
     init() {
-        self.id = -1
+        self.id = 0
         self.isCompleted = false
         self.text = ""
     }

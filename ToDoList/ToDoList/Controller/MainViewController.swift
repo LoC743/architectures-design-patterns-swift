@@ -95,7 +95,6 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            print(tableTasks[indexPath.row])
             TaskStorage.shared.removeTask(by: tableTasks[indexPath.row].id)
             tableTasks.remove(at: indexPath.row)
         }

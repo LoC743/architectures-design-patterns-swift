@@ -16,6 +16,10 @@ class TaskStorage {
         return taskCaretaker.loadMainTask()
     }()
     
+    private lazy var maxID: Int = {
+        return taskCaretaker.loadMaxID()
+    }()
+    
     func addTask(_ newTask: Task, for mainTask: Task) {
         if mainTask.id == task.id {
             task.addSubtask(newTask)
@@ -31,15 +35,29 @@ class TaskStorage {
         taskCaretaker.saveMainTask(task)
     }
     
-    func removeTask(by id: Int) {
-        for subTask in task.openAllSubtasks() {
-            if subTask.removeSubtask(by: id) {
-                print("Removed")
-                break
+    @discardableResult
+    func removeTask(by id: Int) -> Bool {
+        var isTaskRemoved = false
+        
+        if task.removeSubtask(by: id) {
+            isTaskRemoved = true
+        }
+        
+        if !isTaskRemoved {
+            for subTask in task.openAllSubtasks() {
+                if subTask.removeSubtask(by: id) {
+                    isTaskRemoved = true
+                    break
+                }
             }
         }
-        taskCaretaker.saveMainTask(task)
-        task = taskCaretaker.loadMainTask()
+        
+        if isTaskRemoved {
+            taskCaretaker.saveMainTask(task)
+            task = taskCaretaker.loadMainTask()
+        }
+        
+        return isTaskRemoved
     }
     
     func modifyTask(with newTask: Task) {
@@ -57,15 +75,11 @@ class TaskStorage {
        return task
     }
     
-    func getMaxId() -> Int {
-        var maxID = 0
+    
+    func getNextID() -> Int {
+        maxID += 1
+        taskCaretaker.saveMaxID(maxID)
         
-        for subTask in task.openAllSubtasks() {
-            if subTask.id > maxID {
-                maxID = subTask.id
-            }
-        }
-
-        return maxID + 1
+        return maxID
     }
 }
