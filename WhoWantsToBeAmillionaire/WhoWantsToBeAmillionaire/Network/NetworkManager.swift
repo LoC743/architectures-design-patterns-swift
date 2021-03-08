@@ -7,7 +7,7 @@
 
 import Foundation
 
-class NetworkManager {
+class NetworkManager: NetworkManagerInterface {
     static let shared = NetworkManager()
     
     private init() { }
