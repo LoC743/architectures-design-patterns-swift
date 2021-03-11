@@ -21,6 +21,7 @@ protocol QuestionAdapterProtocol: AnyObject {
 class QuestionAdapter: QuestionAdapterProtocol {
     private let questionCaretaker = QuestionCaretaker()
     private let viewModelFactory = QuestionViewModelFactory()
+    private let networkManagerProxy = NetworkManagerProxy(networkManager: NetworkManager.shared)
     
     func loadQuestions(completion: @escaping ([QuestionModel]) -> Void,
                        failure: @escaping () -> Void) {
@@ -29,7 +30,7 @@ class QuestionAdapter: QuestionAdapterProtocol {
         
         // If there is no data try to load from server
         if dbQuestions.isEmpty {
-            NetworkManager.shared.loadQuestionList { [weak self] (questionList) in
+            networkManagerProxy.loadQuestionList { [weak self] (questionList) in
                 guard let self = self,
                       let questionList = questionList else { return }
                 self.questionCaretaker.saveQuestions(questions: questionList.questions)
