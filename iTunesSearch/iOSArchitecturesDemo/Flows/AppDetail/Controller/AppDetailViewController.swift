@@ -9,10 +9,26 @@
 import UIKit
 
 final class AppDetailViewController: UIViewController {
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        
+        scrollView.addSubview(contentView)
+
+        return scrollView
+    }()
+    private lazy var contentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
     
+
     public var app: ITunesApp
     
     lazy var headerDetailViewController = AppDetailHeaderViewController(app: app)
+    lazy var descriptionViewController = AppDetailDescriptionViewController(app: app)
     
     init(app: ITunesApp) {
         self.app = app
@@ -29,6 +45,7 @@ final class AppDetailViewController: UIViewController {
         super.viewDidLoad()
         
         self.view.backgroundColor = .white
+        self.configureUI()
         self.configureNavigationController()
         
         addChildViewController()
@@ -43,9 +60,24 @@ final class AppDetailViewController: UIViewController {
         self.navigationItem.largeTitleDisplayMode = .never
     }
     
-    private func addChildViewController() {
+    private func configureUI() {
+        view.addSubview(scrollView)
         
-        view.addSubview(headerDetailViewController.view)
+        NSLayoutConstraint.activate([
+            scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            scrollView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+        ])
+    }
+    
+    private func addChildViewController() {
+        contentView.addSubview(headerDetailViewController.view)
         addChild(headerDetailViewController)
         
         headerDetailViewController.didMove(toParent: self)
@@ -53,27 +85,25 @@ final class AppDetailViewController: UIViewController {
         headerDetailViewController.view.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            headerDetailViewController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            headerDetailViewController.view.leftAnchor.constraint(equalTo: view.leftAnchor),
-            headerDetailViewController.view.rightAnchor.constraint(equalTo: view.rightAnchor),
+            headerDetailViewController.view.topAnchor.constraint(equalTo: contentView.topAnchor),
+            headerDetailViewController.view.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            headerDetailViewController.view.rightAnchor.constraint(equalTo: contentView.rightAnchor),
         ])
     }
     
     private func addDescriptionViewController() {
-        // ​TODO:​ ДЗ, сделать другие сабмодули
-        let vc = UIViewController()
+        contentView.addSubview(descriptionViewController.view)
+        addChild(descriptionViewController)
         
-        view.addSubview(vc.view)
-        addChild(vc)
+        descriptionViewController.didMove(toParent: self)
         
-        vc.didMove(toParent: self)
-        
-        vc.view.translatesAutoresizingMaskIntoConstraints = false
+        descriptionViewController.view.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            vc.view.topAnchor.constraint(equalTo: headerDetailViewController.view.bottomAnchor),
-            vc.view.leftAnchor.constraint(equalTo: view.leftAnchor),
-            vc.view.rightAnchor.constraint(equalTo: view.rightAnchor),
+            descriptionViewController.view.topAnchor.constraint(equalTo: headerDetailViewController.view.bottomAnchor),
+            descriptionViewController.view.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            descriptionViewController.view.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            descriptionViewController.view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
     }
 }
