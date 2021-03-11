@@ -23,6 +23,7 @@ public struct ITunesApp: Codable {
     public let size: Bytes?
     public let iconUrl: String?
     public let version: String?
+    public let releaseNotes: String?
     public let currentVersionReleaseDate: Date?
     public let screenshotUrls: [String]
     
@@ -40,6 +41,7 @@ public struct ITunesApp: Codable {
         case size = "fileSizeBytes"
         case iconUrl = "artworkUrl512"
         case version
+        case releaseNotes
         case currentVersionReleaseDate
         case screenshotUrls = "screenshotUrls"
     }
@@ -57,6 +59,7 @@ public struct ITunesApp: Codable {
         self.size = (try? container.decode(String.self, forKey: .size)) >>- { Bytes($0) }
         self.iconUrl = try? container.decode(String.self, forKey: .iconUrl)
         self.version = try? container.decode(String.self, forKey: .version)
+        self.releaseNotes = try? container.decode((String.self), forKey: .releaseNotes)
         self.currentVersionReleaseDate = try? container.decode(Date.self, forKey: .currentVersionReleaseDate)
         self.screenshotUrls = (try? container.decode([String].self, forKey: .screenshotUrls)) ?? []
     }
@@ -74,6 +77,7 @@ public struct ITunesApp: Codable {
                   size: Bytes?,
                   iconUrl: String?,
                   version: String?,
+                  releaseNotes: String?,
                   currentVersionReleaseDate: Date?,
                   screenshotUrls: [String]) {
         self.appName = appName
@@ -87,6 +91,7 @@ public struct ITunesApp: Codable {
         self.size = size
         self.iconUrl = iconUrl
         self.version = version
+        self.releaseNotes = releaseNotes
         self.currentVersionReleaseDate = currentVersionReleaseDate
         self.screenshotUrls = screenshotUrls
     }

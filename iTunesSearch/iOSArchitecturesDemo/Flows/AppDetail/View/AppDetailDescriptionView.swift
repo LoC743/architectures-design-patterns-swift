@@ -69,9 +69,9 @@ class AppDetailDescriptionView: UIView {
         return stackView
     }()
     
-    private(set) lazy var descriptionLabel: UILabel = {
+    private(set) lazy var releaseNotesLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 16)
+        label.font = .systemFont(ofSize: 15)
         label.numberOfLines = 0
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -94,7 +94,7 @@ class AppDetailDescriptionView: UIView {
         
         self.addSubview(titleStackView)
         self.addSubview(versionStackView)
-        self.addSubview(descriptionLabel)
+        self.addSubview(releaseNotesLabel)
         
         NSLayoutConstraint.activate([
             titleStackView.topAnchor.constraint(equalTo: topAnchor, constant: 10.0),
@@ -107,10 +107,15 @@ class AppDetailDescriptionView: UIView {
             versionStackView.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -10.0),
             versionStackView.heightAnchor.constraint(equalToConstant: 30.0),
             
-            descriptionLabel.topAnchor.constraint(equalTo: versionStackView.bottomAnchor, constant: 5.0),
-            descriptionLabel.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 16.0),
-            descriptionLabel.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -10.0),
-            descriptionLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
+            releaseNotesLabel.topAnchor.constraint(equalTo: versionStackView.bottomAnchor, constant: 5.0),
+            releaseNotesLabel.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 16.0),
+            releaseNotesLabel.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -10.0),
+            releaseNotesLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+    }
+    
+    public func setReleaseNoteText(with text: String) {
+        releaseNotesLabel.text = text
+        releaseNotesLabel.setLineSpacing(lineSpacing: 5)
     }
 }

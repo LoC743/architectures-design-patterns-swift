@@ -29,6 +29,7 @@ final class AppDetailViewController: UIViewController {
     
     lazy var headerDetailViewController = AppDetailHeaderViewController(app: app)
     lazy var descriptionViewController = AppDetailDescriptionViewController(app: app)
+    lazy var screenshotsViewController = AppDetailScreenshotsViewController(app: app)
     
     init(app: ITunesApp) {
         self.app = app
@@ -49,8 +50,8 @@ final class AppDetailViewController: UIViewController {
         self.configureNavigationController()
         
         addChildViewController()
-        
         addDescriptionViewController()
+        addScreenshotsViewController()
     }
     
     // MARK: - Private
@@ -103,7 +104,23 @@ final class AppDetailViewController: UIViewController {
             descriptionViewController.view.topAnchor.constraint(equalTo: headerDetailViewController.view.bottomAnchor),
             descriptionViewController.view.leftAnchor.constraint(equalTo: contentView.leftAnchor),
             descriptionViewController.view.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            descriptionViewController.view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+        ])
+    }
+    
+    private func addScreenshotsViewController() {
+        contentView.addSubview(screenshotsViewController.view)
+        addChild(screenshotsViewController)
+        
+        screenshotsViewController.didMove(toParent: self)
+        
+        screenshotsViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            screenshotsViewController.view.topAnchor.constraint(equalTo: descriptionViewController.view.bottomAnchor),
+            screenshotsViewController.view.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            screenshotsViewController.view.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            screenshotsViewController.view.heightAnchor.constraint(equalToConstant: 500),
+            screenshotsViewController.view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
 }

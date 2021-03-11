@@ -25,7 +25,6 @@ class AppDetailDescriptionViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     override func loadView() {
         self.view = AppDetailDescriptionView()
     }
@@ -40,7 +39,7 @@ class AppDetailDescriptionViewController: UIViewController {
         appDetailDescriptionView.versionLabel.text = "Version \(app.version ?? "")"
         let versionDate: String = DateFormatter.shared.string(from: app.currentVersionReleaseDate ?? Date())
         appDetailDescriptionView.versionDateLabel.text = "\(versionDate)"
-        appDetailDescriptionView.descriptionLabel.text = app.appDescription
+        appDetailDescriptionView.setReleaseNoteText(with: app.releaseNotes ?? "")
     }
     
 }

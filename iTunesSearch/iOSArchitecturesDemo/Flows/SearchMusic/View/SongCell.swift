@@ -103,7 +103,7 @@ final class SongCell: UITableViewCell {
         NSLayoutConstraint.activate([
             artistNameLabel.topAnchor.constraint(equalTo: songNameLabel.bottomAnchor, constant: 8.0),
             artistNameLabel.leftAnchor.constraint(equalTo: artworkImageView.rightAnchor, constant: 10.0),
-            artistNameLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -40.0)
+            artistNameLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -7.0)
         ])
     }
 }
