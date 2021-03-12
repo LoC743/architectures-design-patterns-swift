@@ -17,7 +17,7 @@ class ScreenshotViewerController: UIViewController {
     
     init(screenshots: [String]) {
         self.screenshots = screenshots
-
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -35,16 +35,6 @@ class ScreenshotViewerController: UIViewController {
         self.screenshotViewerView.collectionView.register(ScreenshotCell.self, forCellWithReuseIdentifier: ScreenshotCell.reuseIdentifier)
         self.screenshotViewerView.collectionView.delegate = self
         self.screenshotViewerView.collectionView.dataSource = self
-    }
-}
-
-// MARK: - UICollectionViewDelegateFlowLayout
-extension ScreenshotViewerController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(
-            width: UIScreen.main.bounds.width - 50,
-            height: UIScreen.main.bounds.height - 50
-        )
     }
 }
 
