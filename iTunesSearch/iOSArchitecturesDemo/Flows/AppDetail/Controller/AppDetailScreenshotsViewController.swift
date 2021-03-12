@@ -14,7 +14,6 @@ class AppDetailScreenshotsViewController: UIViewController {
     enum ConstantSizes: Int {
         case cellWidth = 250
         case cellHeight = 445
-        
     }
     
     private var appDetailScreenshotsView: AppDetailScreenshotsView {
@@ -61,7 +60,8 @@ extension AppDetailScreenshotsViewController: UICollectionViewDelegateFlowLayout
 // MARK: - UICollectionViewDelegate
 extension AppDetailScreenshotsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        return
+        let screenshotViewerController = ScreenshotViewerController(screenshots: app.screenshotUrls)
+        navigationController?.pushViewController(screenshotViewerController, animated: true)
     }
 }
 
