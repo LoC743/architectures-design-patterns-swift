@@ -54,7 +54,8 @@ class SearchMusicPresenter {
     }
     
     private func openSongDetail(with song: ITunesSong) {
-        router.openSongInITunes(song: song)
+//        router.openSongInITunes(song: song)
+        router.openSongPlayer(with: song)
     }
 }
 

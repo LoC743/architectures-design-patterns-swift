@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SearchMusicRouterInput {
-    func openSongPlayer(for song: ITunesSong)
+    func openSongPlayer(with song: ITunesSong)
     func openSongInITunes(song: ITunesSong)
     func moveToAppSearch()
 }
@@ -17,10 +17,9 @@ protocol SearchMusicRouterInput {
 class SearchMusicRouter: SearchMusicRouterInput {
     weak var viewController: UIViewController?
     
-    func openSongPlayer(for song: ITunesSong) {
-        print("\(#function) not implemented")
-//        let playerViewController =
-//        viewController?.present(playerViewController, animated: true, completion: nil)
+    func openSongPlayer(with song: ITunesSong) {
+        let playerViewController = SongPlayerViewController(song: song)
+        viewController?.present(playerViewController, animated: true, completion: nil)
     }
     
     func openSongInITunes(song: ITunesSong) {
