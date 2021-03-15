@@ -22,6 +22,7 @@ protocol SearchViewOutput {
     
     func viewDidSearch(with query: String)
     func viewDidSelectApp(_ app: ITunesApp)
+    func viewDidMoveToSongSearch()
 }
 
 class SearchPresenter {
@@ -66,5 +67,9 @@ extension SearchPresenter: SearchViewOutput {
     
     func viewDidSelectApp(_ app: ITunesApp) {
         openAppDetail(with: app)
+    }
+    
+    func viewDidMoveToSongSearch() {
+        ScreenManager.shared.openMusicSearch()
     }
 }
