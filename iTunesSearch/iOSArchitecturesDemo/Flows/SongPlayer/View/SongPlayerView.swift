@@ -68,6 +68,15 @@ class SongPlayerView: UIView {
         return button
     }()
     
+    private(set) lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.startAnimating()
+        activityIndicator.isHidden = true
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        
+        return activityIndicator
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -85,6 +94,7 @@ class SongPlayerView: UIView {
         self.addSubview(songNameLabel)
         self.addSubview(singerLabel)
         self.addSubview(playerStackView)
+        self.addSubview(activityIndicator)
         
         let sideOffset: CGFloat = 100
         let imageViewSquare = UIScreen.main.bounds.width - sideOffset
@@ -105,6 +115,9 @@ class SongPlayerView: UIView {
             
             playerStackView.topAnchor.constraint(equalTo: singerLabel.bottomAnchor, constant: 10),
             playerStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            
+            activityIndicator.topAnchor.constraint(equalTo: playerStackView.bottomAnchor, constant: 10),
+            activityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
     }
     
@@ -116,6 +129,38 @@ class SongPlayerView: UIView {
             playButton.setImage(UIImage(named: "pause"), for: .normal)
         case .stopped:
             playButton.setImage(UIImage(named: "play"), for: .normal)
+        }
+    }
+    
+    func animateButton(button: UIButton) {
+        button.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+        
+        UIView.animate(
+            withDuration: 2.0,
+            delay: 0,
+            usingSpringWithDamping: CGFloat(0.20),
+            initialSpringVelocity: CGFloat(6.0),
+            options: UIView.AnimationOptions.allowUserInteraction,
+            animations: {
+                button.transform = CGAffineTransform.identity
+            },
+            completion: nil
+        )
+    }
+    
+    func disableControls() {
+        activityIndicator.isHidden = false
+        [playButton, stopButton].forEach { (button) in
+            button.isEnabled = false
+            button.isUserInteractionEnabled = false
+        }
+    }
+    
+    func enableContols() {
+        activityIndicator.isHidden = true
+        [playButton, stopButton].forEach { (button) in
+            button.isEnabled = true
+            button.isUserInteractionEnabled = true
         }
     }
 }

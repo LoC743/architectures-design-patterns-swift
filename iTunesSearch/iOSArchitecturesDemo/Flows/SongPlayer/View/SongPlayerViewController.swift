@@ -45,10 +45,13 @@ class SongPlayerViewController: UIViewController {
     }
     
     @objc private func playButtonTapped(sender: UIButton) {
+        songPlayerView.animateButton(button: sender)
+        songPlayerView.disableControls()
         songViewModel.playSong()
     }
     
     @objc private func stopButtonTapped(sender: UIButton) {
+        songPlayerView.animateButton(button: sender)
         songViewModel.stopSong()
     }
 }
@@ -84,6 +87,7 @@ extension SongPlayerViewController {
         songViewModel.playerState
             .subscribe(onNext: { [weak self] state in
                 self?.songPlayerView.changePlayButton(to: state)
+                self?.songPlayerView.enableContols()
             })
             .disposed(by: disposeBag)
     }

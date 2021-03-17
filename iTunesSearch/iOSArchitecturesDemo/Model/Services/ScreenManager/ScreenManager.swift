@@ -12,7 +12,7 @@ final class ScreenManager {
     
     static let shared = ScreenManager()
     private init() {}
-        
+    
     private enum Screens {
         case appSearch
         case musicSearch
@@ -51,9 +51,9 @@ final class ScreenManager {
             with: configuredNavigationController.view,
             duration: 0.4,
             options: .transitionFlipFromLeft,
-            animations: { [ weak self ] in
-            self?.configuredNavigationController.setViewControllers([rootVC], animated: true)
-        }, completion: nil)
+            animations: {
+                self.configuredNavigationController.setViewControllers([rootVC], animated: true)
+            }, completion: nil)
     }
     
     func openMusicSearch() {
@@ -66,8 +66,8 @@ final class ScreenManager {
             with: configuredNavigationController.view,
             duration: 0.4,
             options: .transitionFlipFromRight,
-            animations: { [ weak self ] in
-            self?.configuredNavigationController.setViewControllers([rootVC], animated: true)
-        }, completion: nil)
+            animations: {
+                self.configuredNavigationController.setViewControllers([rootVC], animated: true)
+            }, completion: nil)
     }
 }

@@ -6,6 +6,7 @@
 //  Copyright © 2021 ekireev. All rights reserved.
 //
 
+import Foundation
 import AVFoundation
 import RxCocoa
 
@@ -16,11 +17,9 @@ enum PlayerState {
 }
 
 final class Player: NSObject {
-    private var player: AVAudioPlayer?
+    private var player: AVAudioPlayer? = nil
     
-    public lazy var state: BehaviorRelay<PlayerState> = {
-        return BehaviorRelay(value: currentState)
-    }()
+    public lazy var state: BehaviorRelay<PlayerState> = BehaviorRelay(value: currentState)
     
     private var currentState: PlayerState = .stopped {
         didSet {
@@ -28,16 +27,18 @@ final class Player: NSObject {
         }
     }
     
-    func play(with URL: URL) {
+    func play(with url: URL) -> Bool {
         do {
-            self.player = try AVAudioPlayer(contentsOf: URL)
+            self.player = try AVAudioPlayer(contentsOf: url)
             player?.delegate = self
             player?.prepareToPlay()
             player?.volume = 1.0
             player?.play()
             currentState = .playing
+            return true
         } catch {
             print(error.localizedDescription)
+            return false
         }
     }
     

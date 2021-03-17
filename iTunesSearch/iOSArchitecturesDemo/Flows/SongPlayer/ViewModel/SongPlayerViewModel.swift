@@ -24,25 +24,15 @@ protocol SongPlayerViewModelInput {
 }
 
 class SongPlayerViewModel: SongPlayerViewModelInput {
-    lazy var songName: BehaviorRelay<String> = {
-        return BehaviorRelay(value: song.trackName)
-    }()
-    
-    lazy var singerName: BehaviorRelay<String?> = {
-        return BehaviorRelay(value: song.artistName)
-    }()
-    
-    lazy var artwork: BehaviorRelay<String?> = {
-        return BehaviorRelay(value: song.artwork)
-    }()
-    
-    lazy var playerState: BehaviorRelay<PlayerState> = {
-        return player.state
-    }()
+    lazy var songName: BehaviorRelay<String> = BehaviorRelay(value: song.trackName)
+    lazy var singerName: BehaviorRelay<String?> = BehaviorRelay(value: song.artistName)
+    lazy var artwork: BehaviorRelay<String?> = BehaviorRelay(value: song.artwork)
+    lazy var playerState: BehaviorRelay<PlayerState> = player.state
     
     internal let song: ITunesSong
     internal let player: Player
     private let songDownloader: SongDownloader
+    private var shouldTryAgain: Bool = true
     
     init(song: ITunesSong) {
         self.song = song
@@ -67,10 +57,14 @@ class SongPlayerViewModel: SongPlayerViewModelInput {
     
     func play() {
         guard let url = URL(string: song.previewUrl ?? "") else { return }
-        songDownloader.downloadFromURL(url) { [weak self] (localURL) in
+        songDownloader.downloadFromURL(url) { localURL in
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
-                self.player.play(with: localURL)
+                if !self.player.play(with: localURL) &&
+                    self.shouldTryAgain {
+                    self.shouldTryAgain = false
+                    self.play()
+                }
             }
         }
     }
